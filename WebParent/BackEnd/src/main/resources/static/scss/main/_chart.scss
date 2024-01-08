@@ -1,0 +1,69 @@
+.apexcharts-datalabel-value,
+.apexcharts-legend-text,
+.apexcharts-text,
+.apexcharts-xaxis-texts-g >*,
+.apexcharts-yaxis-texts-g >* {
+    fill: $color-7;
+    color: $color-7 !important;
+}
+.apexcharts-pie {
+    .apexcharts-text {
+        fill: $white;
+    }
+}
+.apexcharts-datalabel-label {
+    fill: $white;
+}
+.apexcharts-marker {
+    stroke-width: 1;
+}
+.apexcharts-pie circle, .apexcharts-pie line,
+.apexcharts-radar-series line, .apexcharts-radar-series polygon {
+    stroke: rgba($white, .15);
+}
+
+.panel.chart-panel-1 {
+    .panel-body {
+        padding-right: 10px;
+        padding-left: 2px;
+        padding-bottom: 1px;
+        padding-top: 1px;
+    }
+}
+
+.panel.chart-panel-2 {
+    .panel-body {
+        padding-right: 0;
+        padding-bottom: 5px;
+        padding-top: 1px;
+    }
+}
+
+.dark-theme {
+    .apexcharts-datalabel-value,
+    .apexcharts-legend-text,
+    .apexcharts-text,
+    .apexcharts-xaxis-texts-g > *,
+    .apexcharts-yaxis-texts-g > * {
+        fill: $black-6;
+        color: $black-6 !important;
+    }
+    .apexcharts-gridline {
+        stroke: rgba($white, .12);
+    }
+}
+
+
+.light-theme {
+    .apexcharts-datalabel-value,
+    .apexcharts-legend-text,
+    .apexcharts-text,
+    .apexcharts-xaxis-texts-g > *,
+    .apexcharts-yaxis-texts-g > * {
+        fill: $black-4;
+        color: $black-4 !important;
+    }
+    .apexcharts-gridline {
+        stroke: rgba($black, .17);
+    }
+}

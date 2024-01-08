@@ -12,11 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.triquang.common.entity.Role;
 import com.triquang.common.entity.User;
 
-public class ShopmeUserDetails implements UserDetails {
+public class WebUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private User user;
 
-	public ShopmeUserDetails(User user) {
+	public WebUserDetails(User user) {
 		this.user = user;
 	}
 

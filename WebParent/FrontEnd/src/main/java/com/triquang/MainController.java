@@ -1,4 +1,4 @@
-package com.triquang.site;
+package com.triquang;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

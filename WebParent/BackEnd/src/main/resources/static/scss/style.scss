@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "main/variable";
+
+/*============================================================
+[Master Stylesheet]
+Theme Name:            Digiboard - Admin & Dashboard HTML Template
+Frontend Developer:    www.facebook.com/s.k.a.darda (Shaikh Abu Dardah)
+Version:               1.0
+Author:                Codebasket
+URL:                   https://themeforest.net/user/codebasket
+=========================================================*/
+/*=======================================================
+TABLE OF CONTENTS:
+
+01  animation Style
+02  chart Style
+03  global Style
+
+======section stylsheet======
+04  Header section
+05  Right Sidebar section
+06  Left Sidebar section
+07  Main Content section
+
+======Responsive stylsheet======
+08  Responsive*/
+@import "main/animation";
+@import "main/chart";
+@import "main/global";
+
+@import "sections/header";
+@import "sections/right-sidebar";
+@import "sections/sidebar-menu";
+@import "sections/main-content";
+
+@import "main/responsive";

@@ -1,0 +1,488 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba($color-2, .6);
+    backdrop-filter: blur(3px);
+    border-bottom: 1px solid rgba($black-8, .15);
+    height: 70px;
+    z-index: 1052;
+}
+.main-logo {
+    width: 270px;
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+    border-right: 1px dashed rgba($black-8, .15);
+    transition: $transition;
+}
+.main-logo .logo-big {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: $transition;
+}
+.main-logo .logo-small {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    transform: translateY(-50%) translateX(-50%);
+    transition: $transition;
+    opacity: 0;
+}
+.header.expanded .main-logo {
+    width: 70px;
+}
+.header.expanded .main-logo .logo-big {
+    display: none;
+}
+.header.expanded .main-logo .logo-small {
+    opacity: 1;
+}
+.nav-close-btn button {
+    color: $white-7;
+    background: transparent;
+    padding: 0;
+    font-size: 30px;
+    border: 0;
+}
+.nav-close-btn button:hover,
+.nav-close-btn button:focus {
+    color: $white-3;
+}
+.view-website {
+    font-size: 14px;
+    color: $black-7;
+    text-decoration: underline;
+}
+.header-right-btns {
+    gap: 20px;
+    padding-right: 20px;
+}
+.header-right-btns .header-form {
+    background: $color-3;
+    border-radius: 3px;
+    display: flex;
+    overflow: hidden;
+    transition: $transition;
+    &:focus-within {
+        input {
+            width: 250px;
+            padding: 0 15px;
+        }
+    }
+}
+.header-right-btns .header-form input {
+    background: transparent;
+    width: 0;
+    height: 30px;
+    font-size: 14px;
+    padding: 0;
+    color: $black-4;
+    border: 0;
+    outline: none;
+    color: $black-7;
+    transition: $transition;
+}
+.header-right-btns .header-form button {
+    padding: 0;
+    width: 30px;
+    background: transparent;
+    color: $black-7;
+    font-size: 14px;
+    border: 0;
+}
+.header-right-btns .lang-select {
+    color: $white;
+    select {
+        background: transparent;
+        color: $white;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        option {
+            color: $black;
+        }
+    }
+}
+.header-right-btns .header-btn-box {
+    position: relative;
+}
+.header-right-btns .header-btn-box {
+    .badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(15%, -20%);
+        padding: 0 4px;
+        text-align: center;
+        min-width: 17px;
+        height: 17px;
+        line-height: 17px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+.header-right-btns .header-btn-box:last-child .dropdown-menu {
+    padding-top: 0;
+}
+.header-btn {
+    height: 30px;
+    line-height: 30px;
+    background: transparent;
+    border: 0;
+    font-size: 25px;
+    color: $white-7;
+    &.theme-settings-btn {
+        i {
+            animation: spin 5s linear infinite;
+        }
+    }
+}
+.header-btn.show {
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        bottom: -11px;
+        width: 10px;
+        height: 10px;
+        background: $color-2;
+        border-top: 1px solid rgba($white, .15);
+        border-left: 1px solid rgba($white, .15);
+        border-top-left-radius: 4px;
+        transition: $transition;
+        z-index: 1001;
+    }
+    .dropdown-menu {
+        z-index: 1;
+    }
+}
+.header-right-btns .header-btn-box .message-dropdown {
+    width: 280px;
+    box-shadow: 0px 0px 25px -10px $rgba-1;
+    border-radius: 3px;
+    padding: 10px 0;
+    transition: $transition;
+}
+.header-right-btns .header-btn-box .message-dropdown a {
+    padding: 10px;
+}
+.header-right-btns .header-btn-box .message-dropdown a .avatar {
+    margin-right: 10px;
+}
+.header-right-btns .header-btn-box .message-dropdown a .msg-txt {
+    width: calc(100% - 50px);
+}
+.header-right-btns .header-btn-box .message-dropdown a .msg-txt span {
+    display: block;
+    color: $color-7;
+}
+.header-right-btns .header-btn-box .message-dropdown a .msg-txt span.name {
+    font-size: 13px;
+    line-height: 100%;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.header-right-btns .header-btn-box .message-dropdown a .msg-txt span.msg-short {
+    font-family: $heading-font;
+    font-size: 14px;
+    line-height: 20px;
+    color: $color-6;
+    margin-bottom: 9px;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+.header-right-btns .header-btn-box .message-dropdown a .msg-txt span.time {
+    font-size: 12px;
+    line-height: 100%;
+    font-weight: 500;
+    color: $color-6;
+}
+.header-right-btns .header-btn-box .message-dropdown a:hover,
+.header-right-btns .header-btn-box .message-dropdown a:focus {
+    background: rgba($white, .1);
+}
+#notificationDropdown {
+    i {
+        &.animate {
+            animation: wobble .9s cubic-bezier(.36,.07,.19,.97) both infinite;
+        }
+    }
+}
+.header-right-btns .header-btn-box .notification-dropdown {
+    width: 280px;
+    box-shadow: 0px 0px 25px -10px $rgba-1;
+    border-radius: 3px;
+    padding: 10px 0;
+    transition: $transition;
+}
+.header-right-btns .header-btn-box .notification-dropdown a {
+    padding: 10px;
+}
+.header-right-btns .header-btn-box .notification-dropdown a .avatar {
+    margin-right: 10px;
+}
+.header-right-btns .header-btn-box .notification-dropdown a .notification-txt {
+    font-family: $heading-font;
+    width: calc(100% - 50px);
+    font-size: 14px;
+    line-height: 100%;
+    color: $color-7;
+    .fw-bold {
+        font-weight: 700 !important;
+    }
+}
+.header-right-btns .header-btn-box .notification-dropdown a .notification-txt .notification-icon {
+    font-size: 12px;
+    color: $color-7;
+}
+.header-right-btns .header-btn-box .notification-dropdown a:hover,
+.header-right-btns .header-btn-box .notification-dropdown a:focus {
+    background: rgba($white, .1);
+}
+.header-right-btns .header-btn-box .notification-dropdown a:hover .msg-txt span.name,
+.header-right-btns .header-btn-box .notification-dropdown a:hover .msg-txt span.msg-short,
+.header-right-btns .header-btn-box .notification-dropdown a:focus .msg-txt span.name,
+.header-right-btns .header-btn-box .notification-dropdown a:focus .msg-txt span.msg-short {
+    color: $black-4;
+}
+.header-right-btns .dropdown-menu {
+    top: 36px !important;
+    transform: translate(0) !important;
+}
+.header-right-btns .header-btn-box .show-all-btn {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-7;
+    border-radius: 3px;
+    padding: 5px 10px !important;
+    margin: 10px 10px 0;
+}
+.header-right-btns .header-btn-box .show-all-btn:hover {
+    background: $white-3;
+}
+.header-right-btns .profile-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    user-select: none;
+    position: relative;
+    img {
+        border-radius: 15px;
+    }
+}
+.header-right-btns .profile-btn.show {
+    &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        bottom: -11px;
+        width: 10px;
+        height: 10px;
+        background: $color-2;
+        border-top: 1px solid rgba($white, .15);
+        border-left: 1px solid rgba($white, .15);
+        border-top-left-radius: 4px;
+        transition: $transition;
+        z-index: 1001;
+    }
+    .dropdown-menu {
+        z-index: 1;
+    }
+}
+.dropdown-menu {
+    min-width: 200px;
+    box-shadow: 0px 0px 25px -5px $rgba-1;
+    border: 1px solid rgba($white, .1);
+    border-radius: 3px;
+    background: $color-2;
+    padding: 10px 0;
+    overflow: hidden;
+}
+.dropdown-menu .dropdown-icon {
+    display: inline-block;
+    width: 18px;
+}
+.dropdown-menu .dropdown-txt {
+    font-size: 16px;
+    padding: 15px;
+    border-bottom: 1px solid rgba($white, .1);
+    margin-bottom: 10px;
+    color: $color-7;
+    p {
+        font-weight: 500;
+    }
+}
+.dropdown-menu .dropdown-txt span {
+    font-size: 14px;
+    color: $color-6;
+    margin-bottom: -1px;
+}
+.dropdown-menu .dropdown-item {
+    font-size: 14px;
+    color: $color-7;
+    padding: 8px 15px;
+}
+.dropdown-menu .dropdown-item:hover {
+    color: $white;
+}
+.dropdown-menu-sm {
+    padding: 5px 0;
+    min-width: 150px;
+    .dropdown-item {
+        padding: 8px 10px;
+    }
+}
+
+
+/* ===== Header For Dark Theme ===== */
+.dark-theme {
+    .header {
+        background: rgba($dark-theme-2, .6);
+        border-bottom: 1px solid rgba($white, .1);
+    }
+    .nav-close-btn button {
+        color: $white-4;
+    }
+    .header-right-btns {
+        .header-form {
+            background: rgba($dark-theme-2, .2);
+            input {
+                color: $white-2;
+            }
+            button {
+                color: $white-4;
+            }
+        }
+        .lang-select {
+            color: $white-4;
+            select {
+                color: $white-4;
+            }
+        }
+    }
+    .header-btn {
+        color: $white-3;
+    }
+    .header-right-btns .profile-btn.show::after,
+    .header-btn.show::after {
+        background: $dark-theme-2;
+        border-color: rgba($white, .15);
+    }
+    .dropdown-divider,
+    .dropdown-menu {
+        background: $dark-theme-2;
+        border-color: rgba($white, .15);
+        .dropdown-item {
+            color: $white-5;
+            &:hover, &:focus {
+                color: $white;
+            }
+        }
+    }
+    .header-right-btns .header-btn-box .notification-dropdown a:hover,
+    .header-right-btns .header-btn-box .notification-dropdown a:focus,
+    .header-right-btns .header-btn-box .message-dropdown a:hover,
+    .header-right-btns .header-btn-box .message-dropdown a:focus {
+        background: rgba($white, .1);
+    }
+    .dropdown-menu .dropdown-txt {
+        border-color: rgba($white, .15);
+    }
+    .dropdown-menu .dropdown-txt,
+    .header-right-btns .header-btn-box .notification-dropdown a .notification-txt,
+    .header-right-btns .header-btn-box .show-all-btn,
+    .header-right-btns .header-btn-box .message-dropdown a .msg-txt span {
+        color: $white-4;
+    }
+    .dropdown-menu .dropdown-txt span {
+        color: $white-5;
+    }
+}
+
+
+/* ===== Header For Light Theme ===== */
+.light-theme {
+    .header {
+        background: rgba($white, .6);
+        border-bottom: 1px solid rgba($black, .05);
+    }
+    .main-logo {
+        border-color: rgba($black, .1);
+    }
+    .nav-close-btn button {
+        color: $black-4;
+    }
+    .header-right-btns {
+        .header-form {
+            background: $white-5;
+            input {
+                color: $black-2;
+            }
+            button {
+                color: $black-4;
+            }
+        }
+        .lang-select {
+            color: $black-4;
+            select {
+                color: $black-4;
+            }
+        }
+    }
+    .header-btn {
+        color: $black-3;
+    }
+    .header-right-btns .profile-btn.show::after,
+    .header-btn.show::after {
+        background: $white;
+        border-color: rgba($black, .15);
+    }
+    .dropdown-divider,
+    .dropdown-menu {
+        background: $white;
+        border-color: rgba($black, .15);
+        .dropdown-item {
+            color: $black-5;
+            &:hover, &:focus {
+                color: $white;
+            }
+        }
+    }
+    .header-right-btns .header-btn-box .notification-dropdown a:hover,
+    .header-right-btns .header-btn-box .notification-dropdown a:focus,
+    .header-right-btns .header-btn-box .message-dropdown a:hover,
+    .header-right-btns .header-btn-box .message-dropdown a:focus {
+        background: rgba($black, .05);
+    }
+    .dropdown-menu .dropdown-txt {
+        border-color: rgba($black, .1);
+    }
+    .dropdown-menu .dropdown-txt,
+    .header-right-btns .header-btn-box .notification-dropdown a .notification-txt,
+    .header-right-btns .header-btn-box .show-all-btn,
+    .header-right-btns .header-btn-box .message-dropdown a .msg-txt span {
+        color: $black-4;
+    }
+    .dropdown-menu .dropdown-txt span {
+        color: $black-5;
+    }
+}

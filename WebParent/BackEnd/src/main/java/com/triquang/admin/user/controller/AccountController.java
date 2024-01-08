@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.StringUtils;
 
 import com.triquang.admin.FileUploadUtil;
-import com.triquang.admin.security.ShopmeUserDetails;
+import com.triquang.admin.security.WebUserDetails;
 import com.triquang.admin.user.UserService;
 import com.triquang.common.entity.User;
 
@@ -25,7 +25,7 @@ public class AccountController {
 	private UserService service;
 	
 	@GetMapping("/account")
-	public String viewDetails(@AuthenticationPrincipal ShopmeUserDetails loggedUser,
+	public String viewDetails(@AuthenticationPrincipal WebUserDetails loggedUser,
 			Model model) {
 		String email = loggedUser.getUsername();
 		User user = service.getByEmail(email);
@@ -37,7 +37,7 @@ public class AccountController {
 	
 	@PostMapping("/account/update")
 	public String saveDetails(User user, RedirectAttributes redirectAttributes,
-			@AuthenticationPrincipal ShopmeUserDetails loggedUser,
+			@AuthenticationPrincipal WebUserDetails loggedUser,
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		
 		if (!multipartFile.isEmpty()) {

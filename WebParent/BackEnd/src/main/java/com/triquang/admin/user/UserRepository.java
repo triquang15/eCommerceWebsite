@@ -24,9 +24,5 @@ public interface UserRepository extends SearchRepository<User, Integer> {
 	@Query("UPDATE User u SET u.enabled = ?2 WHERE u.id = ?1")
 	@Modifying
 	public void updateEnabledStatus(Integer id, boolean enabled);
-
-	public Streamable<Order> findById(Integer id);
-
-	public void deleteById(Integer id);
 }
 
