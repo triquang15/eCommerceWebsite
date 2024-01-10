@@ -76,6 +76,10 @@ public class Section extends IdBasedEntity {
 		this.id = id;
 	}
 
+	public void addProductSection(ProductSection productSection) {
+		this.productSections.add(productSection);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +104,7 @@ public class Section extends IdBasedEntity {
 			return false;
 		return true;
 	}
+
 
 	public void addCategorySection(CategorySection categorySection) {
 		this.categorySections.add(categorySection);

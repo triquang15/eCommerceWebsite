@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.triquang.admin.dashboard.DashboardInfo;
+import com.triquang.admin.dashboard.DashboardService;
+
 @Controller
 public class MainController {
-	//@Autowired private DashboardService dashboardService;
+	@Autowired private DashboardService dashboardService;
 	
 	@GetMapping("")
 	public String viewHomePage(Model model) {
