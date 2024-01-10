@@ -68,7 +68,7 @@ public class User extends IdBasedEntity {
 	@Transient
 	public String getPhotosImagePath() {
 		if (id == null || photos == null)
-			return "/images/default-user.png";
+			return "/images/admin.png";
 
 		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
 	}

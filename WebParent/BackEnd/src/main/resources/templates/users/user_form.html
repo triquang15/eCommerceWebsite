@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body class="body-padding body-p-top light-theme">
+
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+	<!-- main content start -->
+	<div class="main-content">
+		<div class="dashboard-breadcrumb mb-30">
+			<h2>Manage Users | [[${pageTitle}]]</h2>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="panel">
+					<div class="panel-body">
+						<div class="tab-content profile-edit-tab" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="nav-edit-profile"
+								role="tabpanel" aria-labelledby="nav-edit-profile-tab"
+								tabindex="0">
+								<form th:action="@{/users/save}" method="post"
+									enctype="multipart/form-data" th:object="${user}"
+									onsubmit="return checkEmailUnique(this);">
+									<input type="hidden" th:field="*{id}" />
+									<div class="profile-edit-tab-title">
+										<h6>Private Information</h6>
+									</div>
+									<div class="public-information mb-30">
+										<div class="row g-4">
+											<div class="col-md-3">
+												<div class="admin-profile">
+													<div class="image-wrap">
+														<div class="part-img rounded-circle overflow-hidden">
+															<img id="thumbnail" alt="Photos preview" th:src="@{${user.photosImagePath}}">
+														</div>
+														<div>
+															<input type="hidden" th:field="*{photos}" />
+															<input type="file" id="fileImage" name="image" accept="image/png, image/jpeg"/>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-9">
+												<div class="row g-3">
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-user"></i></span> <input type="text"
+																class="form-control" placeholder="First Name"
+																th:field="*{firstName}" required minlength="2"
+																maxlength="45">
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-at"></i></span> <input type="text"
+																class="form-control" placeholder="Last Name"
+																th:field="*{lastName}" required minlength="2"
+																maxlength="45">
+														</div>
+													</div>
+
+												</div>
+												<br>
+												<div class="row g-3">
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-envelope"></i></span> <input type="email"
+																class="form-control" placeholder="Email"
+																value="example@mail.com" th:field="*{email}" required
+																minlength="8" maxlength="128">
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-lock"></i></span> <input
+																th:if="${user.id == null}" type="password"
+																class="form-control" placeholder="Password"
+																th:field="*{password}" required minlength="8"
+																maxlength="20"> <input
+																th:if="${user.id != null}" type="password"
+																class="form-control" placeholder="Password"
+																th:field="*{password}" required minlength="8"
+																maxlength="20">
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div >
+										<div class="row g-3">
+											<div class="col-sm-6">
+												<label class="form-check">
+													Roles: </label> <br>
+												<th:block th:each="role : ${listRoles}">
+													<input type="checkbox" th:field="*{roles}"
+														th:text="${role.name}" th:value="${role.id}" class="form-check-input m-2" />
+														- <small>[[${role.description}]]</small>
+													<br />
+												</th:block>
+											</div>
+
+											<div class="col-sm-6">
+												<div class="form-check mb-15">
+													<label class="form-check-label"
+														> Enable </label>&nbsp; <input
+														class="form-check-input" type="checkbox"
+														th:field="*{enabled}">
+												</div>
+											</div>
+
+											<div class="row g-3">
+												<div class="col-12">
+													<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="button" id="buttonCancel" class="btn btn-primary">Cancel</button>	
+																											
+												</div>
+												
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- footer start -->
+		<div class="footer">
+			<p>
+				Copyright©
+				<script>
+					document.write(new Date().getFullYear())
+				</script>
+				All Rights Reserved By <span class="text-primary">Revel</span>
+			</p>
+		</div>
+		<!-- footer end -->
+	</div>
+	<div th:replace="modal_fragments :: modal_dialog"></div>
+	<!-- main content end -->
+<script type="text/javascript">
+	MAX_FILE_SIZE = 1024000; // 100KB
+	
+	moduleURL = "[[@{/users}]]";
+	
+	function checkEmailUnique(form) {
+		url = "[[@{/users/check_email}]]";
+		userEmail = $("#email").val();
+		userId = $("#id").val();
+		csrfValue = $("input[name='_csrf']").val();
+		
+		params = {id: userId, email: userEmail, _csrf: csrfValue};
+		
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicated") {
+				showWarningModal("There is another user having the email " + userEmail);
+			} else {
+				showErrorModal("Unknown response from server");
+			}
+		}).fail(function() {
+			showErrorModal("Could not connect to the server");
+		});
+		
+		return false;
+	}
+</script>
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/vendor/js/apexcharts.js}"></script>
+	<script th:src="@{/vendor/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/vendor/js/moment.min.js}"></script>
+	<script th:src="@{/vendor/js/daterangepicker.js}"></script>
+	<script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+</body>
+</html>

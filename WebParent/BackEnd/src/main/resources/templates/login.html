@@ -31,7 +31,7 @@
 					 <div class="msg-error alert alert-danger py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-circle-exclamation me-2"></i> [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</div>
 				</div>
 				<div th:if="${param.logout}">
-					<p class="text-warning text-center">You have been logged out.</p>
+					<div class="msg-error alert alert-warning py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-circle-exclamation me-2"></i> You have been logged out.</div>
 				</div>
                     <div class="input-group mb-30">
                         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
@@ -64,9 +64,9 @@
     </div>
     <!-- main content end -->
     
-    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{/js/jquery.overlayScrollbars.min.js}"></script>
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/main.js}"></script>
 </body>
 </html>

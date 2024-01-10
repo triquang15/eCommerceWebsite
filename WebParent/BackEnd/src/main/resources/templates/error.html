@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head('Error - Revel Admin', 'none')" />
+</head>
+<body class="light-theme">
+
+    <!-- main content start -->
+    <div class="main-content login-panel">
+        <div class="login-body">          
+            <div class="bottom">
+                <h6 class="text-center">Sorry, an unexpected error has occurred</h6>             
+                    <a th:href="@{/}" class="btn btn-primary w-100 login-btn">Go Home</a>              
+            </div>
+        </div>
+
+        <!-- footer start -->
+        <div class="footer">
+            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">Revel</span></p>
+        </div>
+        <!-- footer end -->
+    </div>
+</body>
+
+</html>
