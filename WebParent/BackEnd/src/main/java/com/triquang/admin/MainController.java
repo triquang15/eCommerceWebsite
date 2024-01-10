@@ -14,8 +14,8 @@ public class MainController {
 	
 	@GetMapping("")
 	public String viewHomePage(Model model) {
-//		DashboardInfo summary = dashboardService.loadSummary();
-//		model.addAttribute("summary", summary);		
+		DashboardInfo summary = dashboardService.loadSummary();
+		model.addAttribute("summary", summary);		
 		return "index";
 	}
 	
