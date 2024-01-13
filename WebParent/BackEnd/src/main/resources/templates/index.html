@@ -27,14 +27,6 @@ xmlns:th="http://www.thymeleaf.org"
 	<script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/dashboard.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#logoutLink").on("click", function(e) {
-			e.preventDefault();
-			document.logoutForm.submit();
-		});
-	});
-	</script>
+	<script type="text/javascript" th:src="@{/js/common.js}" ></script>
 </body>
 </html>
