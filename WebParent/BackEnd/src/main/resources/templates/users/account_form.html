@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Your Account Details', 'none')" />
+<body class="body-padding body-p-top light-theme">
 
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+	<!-- main content start -->
+	<div class="main-content">
+		<div class="dashboard-breadcrumb mb-30">
+			<h2>Your Account Details</h2>
+			<div th:if="${message != null}" class="msg-success alert alert-success py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-check me-2"></i>[[${message}]]</div>	
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="panel">
+					<div class="panel-body">
+						<div class="tab-content profile-edit-tab" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="nav-edit-profile"
+								role="tabpanel" aria-labelledby="nav-edit-profile-tab"
+								tabindex="0">
+								<form th:action="@{/account/update}" method="post" 
+									enctype="multipart/form-data" th:object="${user}">
+									<input type="hidden" th:field="*{id}" />
+									<div class="profile-edit-tab-title">
+										<h6>Private Information</h6>
+									</div>
+									<div class="public-information mb-30">
+										<div class="row g-4">
+											<div class="col-md-3">
+												<div class="admin-profile">
+													<div class="image-wrap">
+														<div class="part-img rounded-circle overflow-hidden">
+															<img id="thumbnail" alt="Photos preview" th:src="@{${user.photosImagePath}}">
+														</div>
+														<div>
+															<input type="hidden" th:field="*{photos}" />
+															<input type="file" id="fileImage" name="image" accept="image/*"/>
+														</div>
+													</div>
+													 <span class="admin-name">Name: [[${user.fullName}]]</span>
+                                                    <span class="admin-role">Roles: [[${user.roles}]]</span>
+												</div>
+											</div>
+											<div class="col-md-9">
+												<div class="row g-3">
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-user"></i></span> 
+																<input type="text" class="form-control" th:field="*{firstName}" required minlength="2" maxlength="45"  />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-at"></i></span> 
+																<input type="text" class="form-control" th:field="*{lastName}" required minlength="2" maxlength="45"  />
+														</div>
+													</div>
+
+												</div>
+												<br>
+												<div class="row g-3">
+													<div class="col-sm-6">
+														<div class="input-group">
+															<span class="input-group-text"><i
+																class="fa-light fa-envelope"></i></span> 
+																<input type="email" class="form-control" th:field="*{email}" readonly="readonly" />
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div >
+										<div class="row g-3">											
+											<div class="row g-3">
+											  <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                    <input type="password" th:field="*{password}" class="form-control" placeholder="New Password"
+                                                    minlength="8" maxlength="20"
+													oninput="checkPasswordMatch(document.getElementById('confirmPassword'))">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
+                                                    minlength="8" maxlength="20" oninput="checkPasswordMatch(this)"	>				
+                                                </div>
+                                            </div>
+												<div class="col-12">
+													<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="button" id="buttonCancel" class="btn btn-primary">Cancel</button>	
+																											
+												</div>
+												
+											</div>
+
+										</div>
+									</div>
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- footer start -->
+		<div class="footer">
+			<p>
+				Copyright©
+				<script>
+					document.write(new Date().getFullYear())
+				</script>
+				All Rights Reserved By <span class="text-primary">Revel</span>
+			</p>
+		</div>
+		<!-- footer end -->
+	</div>
+	<div th:replace="modal_fragments :: modal_dialog"></div>
+	<!-- main content end -->
+<script type="text/javascript">
+moduleURL = "[[@{/}]]";
+
+function checkPasswordMatch(confirmPassword) {
+	if (confirmPassword.value != $("#password").val()) {
+		confirmPassword.setCustomValidity("Passwords do not match!");
+	} else {
+		confirmPassword.setCustomValidity("");
+	}
+}
+</script>
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/vendor/js/apexcharts.js}"></script>
+	<script th:src="@{/vendor/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/vendor/js/moment.min.js}"></script>
+	<script th:src="@{/vendor/js/daterangepicker.js}"></script>
+	<script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}" ></script>
 </body>
 </html>

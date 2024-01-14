@@ -113,6 +113,7 @@ public class Product extends IdBasedEntity {
 		if (id == null || mainImage == null)
 			return "/images/image-thumbnail.png";
 
+	//	return "/product-images/" + this.id + "/" + this.mainImage;
 		return Constants.S3_BASE_URI + "/product-images/" + this.id + "/" + this.mainImage;
 	}
 

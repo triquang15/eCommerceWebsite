@@ -70,6 +70,7 @@ public class User extends IdBasedEntity {
 		if (id == null || photos == null)
 			return "/images/admin.png";
 
+//		return "/user-photos/" + this.id + "/" + this.photos; // Get Photo in local
 		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
 	}
 

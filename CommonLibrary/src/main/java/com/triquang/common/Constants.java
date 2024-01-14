@@ -10,4 +10,8 @@ public class Constants {
 
 		S3_BASE_URI = bucketName == null ? "" : String.format(pattern, bucketName, region);
 	}
+	
+	public static void main(String[] args) {
+		System.out.println("S3 BASE URI: " + S3_BASE_URI);
+	}
 }
