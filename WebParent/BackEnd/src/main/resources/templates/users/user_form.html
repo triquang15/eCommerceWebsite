@@ -41,7 +41,7 @@
 														</div>
 														<div>
 															<input type="hidden" th:field="*{photos}" />
-															<input type="file" id="fileImage" name="image" accept="image/png, image/jpeg"/>
+															<input type="file" id="fileImage" name="image" accept="image/*"/>
 														</div>
 													</div>
 												</div>
@@ -157,7 +157,7 @@
 	<div th:replace="modal_fragments :: modal_dialog"></div>
 	<!-- main content end -->
 <script type="text/javascript">
-	MAX_FILE_SIZE = 1024000; // 100KB
+	MAX_FILE_SIZE = 1024000; // 1MB
 	
 	moduleURL = "[[@{/users}]]";
 	

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.StringUtils;
 
+import com.triquang.admin.AmazonS3Util;
 import com.triquang.admin.FileUploadUtil;
 import com.triquang.admin.security.WebUserDetails;
 import com.triquang.admin.user.UserService;
@@ -47,9 +48,8 @@ public class AccountController {
 			
 			String uploadDir = "user-photos/" + savedUser.getId();
 			
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-			
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());			
 		} else {
 			if (user.getPhotos().isEmpty()) user.setPhotos(null);
 			service.updateAccount(user);

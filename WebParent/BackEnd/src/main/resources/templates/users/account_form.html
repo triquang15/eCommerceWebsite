@@ -25,8 +25,7 @@
 							<div class="tab-pane fade show active" id="nav-edit-profile"
 								role="tabpanel" aria-labelledby="nav-edit-profile-tab"
 								tabindex="0">
-								<form th:action="@{/account/update}" method="post" 
-									enctype="multipart/form-data" th:object="${user}">
+								 <form th:action="@{/account/update}" method="post" enctype="multipart/form-data" th:object="${user}">
 									<input type="hidden" th:field="*{id}" />
 									<div class="profile-edit-tab-title">
 										<h6>Private Information</h6>
@@ -40,12 +39,19 @@
 															<img id="thumbnail" alt="Photos preview" th:src="@{${user.photosImagePath}}">
 														</div>
 														<div>
-															<input type="hidden" th:field="*{photos}" />
+															<input type="hidden" th:field="*{photos}" />       
 															<input type="file" id="fileImage" name="image" accept="image/*"/>
 														</div>
 													</div>
-													 <span class="admin-name">Name: [[${user.fullName}]]</span>
-                                                    <span class="admin-role">Roles: [[${user.roles}]]</span>
+                                                    <span class="admin-name">Roles: [[${user.roles}]]</span>
+													<div class="form-check"> <br>
+														<label class="form-check-label"
+															> Enable </label>&nbsp; <input
+															class="form-check-input" type="checkbox"
+															th:field="*{enabled}">
+													</div>
+											
+                                                    
 												</div>
 											</div>
 											<div class="col-md-9">
@@ -134,6 +140,7 @@
 	<div th:replace="modal_fragments :: modal_dialog"></div>
 	<!-- main content end -->
 <script type="text/javascript">
+MAX_FILE_SIZE = 1024000; // 100KB
 moduleURL = "[[@{/}]]";
 
 function checkPasswordMatch(confirmPassword) {
