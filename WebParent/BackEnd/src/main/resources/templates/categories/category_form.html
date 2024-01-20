@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body class="body-padding body-p-top light-theme">
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	
+	    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-30">
+            <h2>Manage Categories | [[${pageTitle}]]</h2>	
+        </div>
+        <div class="row g-10">
+            <div class="col-xxl-12 col-md-10">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Add New Category</h5>
+                    </div>
+                    <div class="panel-body">
+                    <form th:action="@{/categories/save}" method="post" enctype="multipart/form-data"
+					onsubmit="return checkUnique(this)"
+					th:object="${category}">	
+					<input type="hidden" th:field="*{id}" />				
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="form-label">Category Name</label>
+                                <input type="text" class="form-control form-control-sm" th:field="*{name}" required minlength="3" maxlength="128"  />
+                            </div>
+                           
+                            <div class="col-sm-6">
+                                <label class="form-label">Alias</label>
+                                <input type="text" class="form-control form-control-sm" th:field="*{alias}" required minlength="3" maxlength="64">
+                            </div>
+                            
+                            <div class="col-6">
+                                <label class="form-label">Parent Category</label>
+                                <select class="form-control form-control-sm" th:field="*{parent}">
+                                    <option value="0">[No Parent]</option>
+                                    <th:block th:each="cat : ${listCategories}">
+                                    <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                             <div class="col-6">
+                                <label class="form-label">Enabled</label>
+                                <input type="checkbox" class="form-check-input"  th:field="*{enabled}" />
+                            </div>
+                            <div class="col-12">
+                                <div class="upload-category-thumbnail">
+                                    <label class="form-label">Add Category Thumbnail</label>
+                                    <input type="hidden" th:field="*{image}" />
+                                    <input type="file" id="fileImage" name="fileImage" accept="image/*" 
+                                    th:required="${category.imagePath == null}"
+                                    width="200px;" height="200px;">
+                                    
+                                    <div class="mt-2">
+									<img id="thumbnail" alt="Image preview" th:src="@{${category.imagePath}}"
+									width="200px;" height="200px;" />
+									</div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-end">
+                                <div class="btn-box">
+                                    <button type="submit" class="btn btn-sm btn-primary">Save </button>
+                                     <button type="button" id="buttonCancel" class="btn btn-sm btn-primary">Cancel </button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- footer start -->
+        <div class="footer">
+            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">Digiboard</span></p>
+        </div>
+        <!-- footer end -->
+    </div>
+    <div th:replace="modal_fragments :: modal_dialog"></div>
+    <!-- main content end -->
+    <script type="text/javascript">
+	MAX_FILE_SIZE = 1024000; // 1MB
+	moduleURL = "[[@{/categories}]]";
+	
+	function checkUnique(form) {
+		catId = $("#id").val();
+		catName = $("#name").val();
+		catAlias = $("#alias").val();
+		
+		csrfValue = $("input[name='_csrf']").val();
+		
+		url = "[[@{/categories/check_unique}]]";
+		
+		params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
+		
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "DuplicateName") {
+				showWarningModal("There is another category having same name " + catName);	
+			} else if (response == "DuplicateAlias") {
+				showWarningModal("There is another category having same alias " + catAlias);
+			} else {
+				showErrorModal("Unknown response from server");
+			}
+			
+		}).fail(function() {
+			showErrorModal("Could not connect to the server");
+		});
+		
+		return false;
+	}
+	
+</script>
+    <script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.uploader.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/js/select2.min.js}"></script>
+    <script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/select2-init.js}"></script>
+    <script th:src="@{/js/category.js}"></script>
+    <script th:src="@{/js/common_form.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+</body>
+</html>

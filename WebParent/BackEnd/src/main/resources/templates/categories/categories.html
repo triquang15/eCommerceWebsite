@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Categories - Revel Admin', 'none')" />
+<body class="body-padding body-p-top light-theme">
+
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+
+     <!-- main content start -->
+  <div class="main-content">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Manage Categories</h5>
+                        <div class="btn-box d-flex gap-2">
+                        <a th:href="@{/categories/new}" class="btn btn-sm btn-icon btn-outline-primary" title="New Category" ><i class="fa-light fa-plus"></i></a>       
+                       	<a th:href="@{/categories/export/csv}" class="btn btn-sm btn-icon btn-outline-primary" title="Download CSV" ><i class="fa-light fa-file-spreadsheet"></i></a>                                        
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                       <div class="table-filter-option">
+                            <div class="row g-3">
+                                <div class="col-xl-10 col-9 col-xs-12">
+                                    <div class="row g-3">
+                                        <div class="col">
+                                            <div th:replace="fragments :: search_form_and_message" />
+                                         
+                                        </div>                                      
+                                                      
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-3 col-xs-12 d-flex justify-content-end">
+                                    <div id="productTableLength"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-dashed table-hover digi-dataTable all-product-table table-striped">
+                            <thead>
+                                <tr>
+                                    <th th:replace="fragments :: column_link('id', 'ID', 'none')" />
+                                    <th>Category Image</th>
+                                    <th th:replace="fragments :: column_link('name', 'Category Name', 'none')" />
+                                    <th>Alias</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cat : ${listCategories}">                                   
+                                    <td>#[[${cat.id}]]</td>
+                                    <td><div th:replace="fragments :: category_photos" /></td>
+                                   <td>[[${cat.name}]]</td>
+                                    <td>[[${cat.alias}]]</td>
+									<td><div th:replace="fragments :: status(${cat.enabled}, 'category', '/categories/' + ${cat.id})" /></td>
+                                    <td>
+                                        <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
+										&nbsp;&nbsp;
+										<div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})" />	
+                                    </td>
+                                </tr>
+                           
+                            </tbody>
+                        </table>
+                        <div class="table-bottom-control"></div>
+                        	<div th:if="${keyword != null}" class="text-center">
+							<span>Search result does not show categories in hierarchical form</span>
+							<div th:replace="fragments :: pagination('categories')"></div>
+						</div>
+	
+						<th:block th:unless="${keyword != null}">
+						<div th:replace="fragments :: pagination('top-level categories')"></div>
+						</div>               	 			
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer start -->
+        <div class="footer">
+            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">Revel</span></p>
+        </div>
+        <!-- footer end -->   
+
+     <div th:replace="modal_fragments :: confirm_modal" /></div>			
+	<script type="text/javascript">
+		moduleURL = "[[@{/categories}]]";
+		entityName = "category";
+	</script>
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/vendor/js/moment.min.js}"></script>
+    <script th:src="@{/vendor/js/daterangepicker.js}"></script>
+    <script th:src="@{/vendor/js/select2.min.js}"></script>
+    <script th:src="@{/vendor/js/pdfmake.min.js}"></script>
+    <script th:src="@{/vendor/js/html2canvas.min.js}"></script>
+    <script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/common_list.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+</body>
+</html>

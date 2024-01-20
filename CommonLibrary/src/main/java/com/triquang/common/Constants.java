@@ -1,4 +1,4 @@
-package com.triquang.common;
+ package com.triquang.common;
 
 public class Constants {
 	public static final String S3_BASE_URI;

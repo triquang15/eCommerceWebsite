@@ -88,7 +88,7 @@ public class Category extends IdBasedEntity {
 	public Category(String name) {
 		this.name = name;
 		this.alias = name;
-		this.image = "default.png";
+		this.image = "default.jpg";
 	}
 	
 	public Category(String name, Category parent) {

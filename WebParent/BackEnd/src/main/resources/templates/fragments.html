@@ -9,7 +9,9 @@
 	<link rel="shortcut icon" th:href="@{/images/favicon.png}">
     <link rel="stylesheet" th:href="@{/vendor/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/OverlayScrollbars.min.css}">
+     <link rel="stylesheet" th:href="@{/vendor/css/jquery.uploader.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/jquery.dataTables.min.css}">
+     <link rel="stylesheet" th:href="@{/vendor/css/select2.min.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/daterangepicker.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -29,6 +31,7 @@
 		class="page-link" 
 		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''}}">[[${label}]]</a>
 
+   <!-- SHOW PHOTO START -->
 	<div th:fragment="user_photos" th:remove="tag">
 		<div class="table-product-card">
 			<div class="part-img">
@@ -37,6 +40,15 @@
 			</div>
 		</div>
 	</div>
+	<div th:fragment="category_photos" th:remove="tag">
+		<div class="table-product-card">
+			<div class="part-img">
+				<img th:if="${cat.imagePath == null}" th:src="@{/images/product-img-1.jpg}" alt="Image">
+				<img th:if="${cat.imagePath != null}" th:src="@{${cat.imagePath}}" alt="Image">
+			</div>
+		</div>
+	</div>
+   <!-- SHOW PHOTO END -->
 
 	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
 		<a th:if="${enabled == true}" class="fas fa-check-circle" style="color: #008000"
