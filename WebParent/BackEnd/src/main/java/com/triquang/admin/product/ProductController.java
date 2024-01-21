@@ -15,12 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.triquang.admin.FileUploadUtil;
-import com.triquang.admin.brand.BrandService;
+import com.triquang.admin.author.AuthorService;
 import com.triquang.admin.category.CategoryService;
 import com.triquang.admin.paging.PagingAndSortingHelper;
 import com.triquang.admin.paging.PagingAndSortingParam;
 import com.triquang.admin.security.WebUserDetails;
-import com.triquang.common.entity.Brand;
+import com.triquang.common.entity.Author;
 import com.triquang.common.entity.Category;
 import com.triquang.common.entity.product.Product;
 import com.triquang.common.exception.ProductNotFoundException;
@@ -29,7 +29,7 @@ import com.triquang.common.exception.ProductNotFoundException;
 public class ProductController {
 	private String defaultRedirectURL = "redirect:/products/page/1?sortField=name&sortDir=asc&categoryId=0";
 	@Autowired private ProductService productService;
-	@Autowired private BrandService brandService;
+	@Autowired private AuthorService brandService;
 	@Autowired private CategoryService categoryService;
 	
 	@GetMapping("/products")
@@ -56,7 +56,7 @@ public class ProductController {
 	
 	@GetMapping("/products/new")
 	public String newProduct(Model model) {
-		List<Brand> listBrands = brandService.listAll();
+		List<Author> listBrands = brandService.listAll();
 		
 		Product product = new Product();
 		product.setEnabled(true);
@@ -143,7 +143,7 @@ public class ProductController {
 			RedirectAttributes ra, @AuthenticationPrincipal WebUserDetails loggedUser) {
 		try {
 			Product product = productService.get(id);
-			List<Brand> listBrands = brandService.listAll();
+			List<Author> listBrands = brandService.listAll();
 			Integer numberOfExistingExtraImages = product.getImages().size();
 			
 			boolean isReadOnlyForSalesperson = false;

@@ -12,53 +12,50 @@
 	    <!-- main content start -->
     <div class="main-content">
         <div class="dashboard-breadcrumb mb-30">
-            <h2>Manage Categories | [[${pageTitle}]]</h2>	
+            <h2>Manage Authors | [[${pageTitle}]]</h2>	
         </div>
         <div class="row g-10">
-            <div class="col-xxl-12 col-md-10">
+            <div class="col-xxl-12 col-md-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h5>Add New Category</h5>
+                        <h5>Add New Author</h5>
                     </div>
                     <div class="panel-body">
-                    <form th:action="@{/categories/save}" method="post" enctype="multipart/form-data"
+                    <form th:action="@{/authors/save}" method="post" enctype="multipart/form-data"
 					onsubmit="return checkUnique(this)"
-					th:object="${category}">	
+					th:object="${author}">	
 					<input type="hidden" th:field="*{id}" />				
                         <div class="row g-3">
                             <div class="col-6">
-                                <label class="form-label">Category Name</label>
-                                <input type="text" class="form-control form-control-sm" th:field="*{name}" required minlength="3" maxlength="128"  />
+                                <label class="form-label">Author Name</label>
+                                <input type="text" class="form-control form-control-sm" th:field="*{name}" required minlength="3" maxlength="45"  />
                             </div>
-                           
-                            <div class="col-sm-6">
-                                <label class="form-label">Alias</label>
-                                <input type="text" class="form-control form-control-sm" th:field="*{alias}" required minlength="3" maxlength="64">
-                            </div>
-                            
+                         
                             <div class="col-6">
-                                <label class="form-label">Parent Category</label>
-                                <select class="form-control form-control-sm" th:field="*{parent}">
-                                    <option value="0">[No Parent]</option>
-                                    <th:block th:each="cat : ${listCategories}">
-                                    <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                <label class="form-label">Select one or more categories</label>
+                                <select class="form-control form-control-sm" th:field="*{categories}" multiple required>
+                                   <th:block th:each="cat : ${listCategories}">
+                                   <option th:value="${cat.id}">[[${cat.name}]]</option>
                                     </th:block>
                                 </select>
                             </div>
-                             <div class="col-6">
-                                <label class="form-label">Enabled</label>
-                                <input type="checkbox" class="form-check-input"  th:field="*{enabled}" />
+                            
+                             <div class="col-12">
+                                <label class="form-label">Chosen categories</label>				                  
+								<div id="chosenCategories">					
+							</div>
                             </div>
+                           
                             <div class="col-12">
                                 <div class="upload-category-thumbnail">
-                                    <label class="form-label">Add Category Thumbnail</label>
-                                    <input type="hidden" th:field="*{image}" />
+                                    <label class="form-label">Photo</label>
+                                    <input type="hidden" th:field="*{logo}" />
                                     <input type="file" id="fileImage" name="fileImage" accept="image/*" 
-                                    th:required="${category.imagePath == null}"
+                                   th:required="${author.id == null}"
                                     width="200px;" height="200px;">
                                     
                                     <div class="mt-2">
-									<img id="thumbnail" alt="Image preview" th:src="@{${category.imagePath}}"
+									<img id="thumbnail" alt="Image preview" th:src="@{${author.logoPath}}"
 									width="200px;" height="200px;" />
 									</div>
                                 </div>
@@ -85,28 +82,25 @@
     </div>
     <div th:replace="modal_fragments :: modal_dialog"></div>
     <!-- main content end -->
-    <script type="text/javascript">
-	MAX_FILE_SIZE = 1024000; // 1MB
-	moduleURL = "[[@{/categories}]]";
+<script type="text/javascript">
+	MAX_FILE_SIZE = 102400; // 100KB
+	moduleURL = "[[@{/authors}]]";
 	
 	function checkUnique(form) {
-		catId = $("#id").val();
-		catName = $("#name").val();
-		catAlias = $("#alias").val();
+		authorId = $("#id").val();
+		authorName = $("#name").val();
 		
 		csrfValue = $("input[name='_csrf']").val();
 		
-		url = "[[@{/categories/check_unique}]]";
+		url = "[[@{/authors/check_unique}]]";
 		
-		params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
+		params = {id: authorId, name: authorName, _csrf: csrfValue};
 		
 		$.post(url, params, function(response) {
 			if (response == "OK") {
 				form.submit();
-			} else if (response == "DuplicateName") {
-				showWarningModal("There is another category having same name " + catName);	
-			} else if (response == "DuplicateAlias") {
-				showWarningModal("There is another category having same alias " + catAlias);
+			} else if (response == "Duplicate") {
+				showWarningModal("There is another author having same name " + authorName);	
 			} else {
 				showErrorModal("Unknown response from server");
 			}
@@ -116,7 +110,7 @@
 		});
 		
 		return false;
-	}
+	}	
 	
 </script>
     <script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
@@ -126,8 +120,6 @@
     <script th:src="@{/vendor/js/select2.min.js}"></script>
     <script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/select2-init.js}"></script>
-    <script th:src="@{/js/category.js}"></script>
     <script th:src="@{/js/common_form.js}"></script>
     <script type="text/javascript" th:src="@{/js/common.js}" ></script>
 </body>

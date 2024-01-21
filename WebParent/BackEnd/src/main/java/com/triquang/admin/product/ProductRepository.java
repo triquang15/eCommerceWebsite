@@ -21,7 +21,7 @@ public interface ProductRepository extends SearchRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1% " 
 			+ "OR p.shortDescription LIKE %?1% "
 			+ "OR p.fullDescription LIKE %?1% "
-			+ "OR p.brand.name LIKE %?1% "
+			+ "OR p.author.name LIKE %?1% "
 			+ "OR p.category.name LIKE %?1%")
 	public Page<Product> findAll(String keyword, Pageable pageable);
 
@@ -35,7 +35,7 @@ public interface ProductRepository extends SearchRepository<Product, Integer> {
 			+ "(p.name LIKE %?3% " 
 			+ "OR p.shortDescription LIKE %?3% "
 			+ "OR p.fullDescription LIKE %?3% "
-			+ "OR p.brand.name LIKE %?3% "
+			+ "OR p.author.name LIKE %?3% "
 			+ "OR p.category.name LIKE %?3%)")			
 	public Page<Product> searchInCategory(Integer categoryId, String categoryIdMatch, 
 			String keyword, Pageable pageable);

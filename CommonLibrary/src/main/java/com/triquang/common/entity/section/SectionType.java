@@ -10,7 +10,7 @@ public enum SectionType {
 	},
 	
 	BRAND {
-		public String toString() { return "Brand"; }
+		public String toString() { return "Author"; }
 	}, 
 	
 	ARTICLE {

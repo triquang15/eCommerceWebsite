@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.triquang.brand.BrandRepository;
-import com.triquang.common.entity.Brand;
+import com.triquang.author.AuthorRepository;
+import com.triquang.common.entity.Author;
 import com.triquang.common.entity.product.Product;
 
 @Controller
 public class ProductsByBrandController {
 	
-	@Autowired private BrandRepository brandRepo;
+	@Autowired private AuthorRepository brandRepo;
 	@Autowired private ProductService productService;
 	
 	@GetMapping("/brand/{brand_id}")
@@ -29,12 +29,12 @@ public class ProductsByBrandController {
 	public String listProductsByBrandByPage(@PathVariable(name = "brand_id") Integer brandId,
 			@PathVariable(name = "pageNum") int pageNum,
 			Model model) {
-		Optional<Brand> brandById = brandRepo.findById(brandId);
+		Optional<Author> brandById = brandRepo.findById(brandId);
 		if (!brandById.isPresent()) {
 			return "error/404";
 		}
 		
-		Brand brand = brandById.get();
+		Author brand = brandById.get();
 		
 		Page<Product> pageProducts = productService.listByBrand(pageNum, brand.getId());
 		List<Product> listProducts = pageProducts.getContent();

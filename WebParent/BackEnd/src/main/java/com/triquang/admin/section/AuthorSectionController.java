@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.triquang.admin.brand.BrandService;
-import com.triquang.common.entity.Brand;
-import com.triquang.common.entity.section.BrandSection;
+import com.triquang.admin.author.AuthorService;
+import com.triquang.common.entity.Author;
+import com.triquang.common.entity.section.AuthorSection;
 import com.triquang.common.entity.section.Section;
 import com.triquang.common.entity.section.SectionType;
 import com.triquang.common.exception.SectionNotFoundException;
@@ -20,71 +20,71 @@ import com.triquang.common.exception.SectionNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class BrandSectionController {
+public class AuthorSectionController {
 
 	@Autowired
 	private SectionService sectionService;
 	
 	@Autowired
-	private BrandService brandService;
+	private AuthorService authorService;
 	
-	@GetMapping("/sections/new/brand")
+	@GetMapping("/sections/new/author")
 	public String showForm(Model model) {
 		Section section = new Section(true, SectionType.BRAND);
-		List<Brand> listBrands = brandService.listAll();
+		List<Author> listAuthors = authorService.listAll();
 		
-		model.addAttribute("listBrands", listBrands);
+		model.addAttribute("listAuthors", listAuthors);
 		model.addAttribute("section", section);
-		model.addAttribute("pageTitle", "Add Brand Section");
+		model.addAttribute("pageTitle", "Add Author Section");
 		
-		return "sections/brand_section_form";
+		return "sections/author_section_form";
 	}		
 	
-	@PostMapping("/sections/save/brand")
+	@PostMapping("/sections/save/author")
 	public String saveSection(Section section, HttpServletRequest request, RedirectAttributes ra) {
-		addBrandsToSection(section, request);
+		addAuthorsToSection(section, request);
 		sectionService.saveSection(section);
 		
-		ra.addFlashAttribute("message", "The section of type Brand has been saved successfully.");
+		ra.addFlashAttribute("message", "The section of type Author has been saved successfully.");
 		return "redirect:/sections";
 	}	
 	
-	private void addBrandsToSection(Section section, HttpServletRequest request) {
-		String[] IDs = request.getParameterValues("chosenBrands");
+	private void addAuthorsToSection(Section section, HttpServletRequest request) {
+		String[] IDs = request.getParameterValues("chosenAuthors");
 		
 		if (IDs != null && IDs.length > 0) {
 			for (int i = 0; i < IDs.length; i++) {
 				String[] arrayIds = IDs[i].split("-");
 				
-				BrandSection brandSection = new BrandSection();
+				AuthorSection authorSection = new AuthorSection();
 				
-				Integer brandSectionId = Integer.valueOf(arrayIds[1]);
-				if (brandSectionId > 0) {
-					brandSection.setId(brandSectionId);
+				Integer authorSectionId = Integer.valueOf(arrayIds[1]);
+				if (authorSectionId > 0) {
+					authorSection.setId(authorSectionId);
 				}
 					
-				brandSection.setBrandOrder(i);
-				Integer brandId = Integer.valueOf(arrayIds[0]);
+				authorSection.setAuthorOrder(i);
+				Integer authorId = Integer.valueOf(arrayIds[0]);
 				
-				brandSection.setBrand(new Brand(brandId));
-				section.addBrandSection(brandSection);
+				authorSection.setAuthor(new Author(authorId));
+				section.addAuthorSection(authorSection);
 				
 			}
 		}		
 	}	
 	
-	@GetMapping("/sections/edit/Brand/{id}")
+	@GetMapping("/sections/edit/author/{id}")
 	public String editSection(@PathVariable(name = "id") Integer id, RedirectAttributes ra,
 			Model model) {
 		try {
 			Section section = sectionService.getSection(id);
-			List<Brand> listBrands = brandService.listAll();
+			List<Author> listAuthors = authorService.listAll();
 			
-			model.addAttribute("listBrands", listBrands);
+			model.addAttribute("listAuthors", listAuthors);
 			model.addAttribute("section", section);
-			model.addAttribute("pageTitle", "Edit Brand Section (ID: " + id + ")");
+			model.addAttribute("pageTitle", "Edit Author Section (ID: " + id + ")");
 			
-			return "sections/brand_section_form";
+			return "sections/author_section_form";
 			
 		} catch (SectionNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());

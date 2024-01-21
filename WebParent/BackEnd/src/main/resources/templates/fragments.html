@@ -48,6 +48,14 @@
 			</div>
 		</div>
 	</div>
+	<div th:fragment="author_photos" th:remove="tag">
+		<div class="table-product-card">
+			<div class="part-img">
+				<img th:if="${author.logoPath == null}" th:src="@{/images/product-img-1.jpg}" alt="Image">
+				<img th:if="${author.logoPath != null}" th:src="@{${author.logoPath}}" alt="Image">
+			</div>
+		</div>
+	</div>
    <!-- SHOW PHOTO END -->
 
 	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">

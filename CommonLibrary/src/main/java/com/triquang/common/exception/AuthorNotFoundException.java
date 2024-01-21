@@ -1,13 +1,13 @@
 package com.triquang.common.exception;
 
-public class BrandNotFoundException extends Exception {
+public class AuthorNotFoundException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BrandNotFoundException(String message) {
+	public AuthorNotFoundException(String message) {
 		super(message);
 	}
 

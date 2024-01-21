@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.triquang.common.Constants;
-import com.triquang.common.entity.Brand;
+import com.triquang.common.entity.Author;
 import com.triquang.common.entity.Category;
 import com.triquang.common.entity.IdBasedEntity;
 
@@ -74,8 +74,8 @@ public class Product extends IdBasedEntity {
 	private Category category;
 
 	@ManyToOne
-	@JoinColumn(name = "brand_id")
-	private Brand brand;
+	@JoinColumn(name = "author_id")
+	private Author author;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProductImage> images = new HashSet<>();

@@ -51,8 +51,8 @@ public class Section extends IdBasedEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "section_id")
-	@OrderBy("brandOrder ASC")
-	private List<BrandSection> brandSections = new ArrayList<>();
+	@OrderBy("authorOrder ASC")
+	private List<AuthorSection> authorSections = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "section_id")
@@ -110,8 +110,8 @@ public class Section extends IdBasedEntity {
 		this.categorySections.add(categorySection);
 	}
 
-	public void addBrandSection(BrandSection brandSection) {
-		this.brandSections.add(brandSection);
+	public void addAuthorSection(AuthorSection authorSection) {
+		this.authorSections.add(authorSection);
 	}
 
 	public void addArticleSection(ArticleSection articleSection) {

@@ -1,4 +1,4 @@
-package com.triquang.admin.brand;
+package com.triquang.admin.author;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,91 +18,91 @@ import com.triquang.admin.AmazonS3Util;
 import com.triquang.admin.category.CategoryService;
 import com.triquang.admin.paging.PagingAndSortingHelper;
 import com.triquang.admin.paging.PagingAndSortingParam;
-import com.triquang.common.entity.Brand;
+import com.triquang.common.entity.Author;
 import com.triquang.common.entity.Category;
-import com.triquang.common.exception.BrandNotFoundException;
+import com.triquang.common.exception.AuthorNotFoundException;
 
 @Controller
-public class BrandController {
-	private String defaultRedirectURL = "redirect:/brands/page/1?sortField=name&sortDir=asc";
-	@Autowired private BrandService brandService;	
+public class AuthorController {
+	private String defaultRedirectURL = "redirect:/authors/page/1?sortField=name&sortDir=asc";
+	@Autowired private AuthorService authorService;	
 	@Autowired private CategoryService categoryService;
 	
-	@GetMapping("/brands")
+	@GetMapping("/authors")
 	public String listFirstPage() {
 		return defaultRedirectURL;
 	}
 	
-	@GetMapping("/brands/page/{pageNum}")
+	@GetMapping("/authors/page/{pageNum}")
 	public String listByPage(
-			@PagingAndSortingParam(listName = "listBrands", moduleURL = "/brands") PagingAndSortingHelper helper,
+			@PagingAndSortingParam(listName = "listAuthors", moduleURL = "/authors") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum
 			) {
-		brandService.listByPage(pageNum, helper);
-		return "brands/brands";		
+		authorService.listByPage(pageNum, helper);
+		return "authors/authors";		
 	}
 	
-	@GetMapping("/brands/new")
-	public String newBrand(Model model) {
+	@GetMapping("/authors/new")
+	public String newAuthor(Model model) {
 		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 		
 		model.addAttribute("listCategories", listCategories);
-		model.addAttribute("brand", new Brand());
-		model.addAttribute("pageTitle", "Create New Brand");
+		model.addAttribute("author", new Author());
+		model.addAttribute("pageTitle", "Create New Author");
 		
-		return "brands/brand_form";		
+		return "authors/author_form";		
 	}
 	
-	@PostMapping("/brands/save")
-	public String saveBrand(Brand brand, @RequestParam("fileImage") MultipartFile multipartFile,
+	@PostMapping("/authors/save")
+	public String saveAuthor(Author author, @RequestParam("fileImage") MultipartFile multipartFile,
 			RedirectAttributes ra) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			brand.setLogo(fileName);
+			author.setLogo(fileName);
 			
-			Brand savedBrand = brandService.save(brand);
-			String uploadDir = "brand-logos/" + savedBrand.getId();
+			Author savedAuthor = authorService.save(author);
+			String uploadDir = "author-logos/" + savedAuthor.getId();
 			
 			AmazonS3Util.removeFolder(uploadDir);
 			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {
-			brandService.save(brand);
+			authorService.save(author);
 		}
 		
-		ra.addFlashAttribute("message", "The brand has been saved successfully.");
+		ra.addFlashAttribute("message", "The author has been saved successfully.");
 		return defaultRedirectURL;		
 	}
 	
-	@GetMapping("/brands/edit/{id}")
-	public String editBrand(@PathVariable(name = "id") Integer id, Model model,
+	@GetMapping("/authors/edit/{id}")
+	public String editAuthor(@PathVariable(name = "id") Integer id, Model model,
 			RedirectAttributes ra) {
 		try {
-			Brand brand = brandService.get(id);
+			Author author = authorService.get(id);
 			List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 			
-			model.addAttribute("brand", brand);
+			model.addAttribute("author", author);
 			model.addAttribute("listCategories", listCategories);
-			model.addAttribute("pageTitle", "Edit Brand (ID: " + id + ")");
+			model.addAttribute("pageTitle", "Edit Author (ID: " + id + ")");
 			
-			return "brands/brand_form";			
-		} catch (BrandNotFoundException ex) {
+			return "authors/author_form";			
+		} catch (AuthorNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;
 		}
 	}
 	
-	@GetMapping("/brands/delete/{id}")
-	public String deleteBrand(@PathVariable(name = "id") Integer id, 
+	@GetMapping("/authors/delete/{id}")
+	public String deleteAuthor(@PathVariable(name = "id") Integer id, 
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		try {
-			brandService.delete(id);
-			String brandDir = "brand-logos/" + id;
-			AmazonS3Util.removeFolder(brandDir);
+			authorService.delete(id);
+			String authorDir = "author-logos/" + id;
+			AmazonS3Util.removeFolder(authorDir);
 			
 			redirectAttributes.addFlashAttribute("message", 
-					"The brand ID " + id + " has been deleted successfully");
-		} catch (BrandNotFoundException ex) {
+					"The author ID " + id + " has been deleted successfully");
+		} catch (AuthorNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 		}
 		

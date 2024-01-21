@@ -1,6 +1,6 @@
 package com.triquang.common.entity.section;
 
-import com.triquang.common.entity.Brand;
+import com.triquang.common.entity.Author;
 import com.triquang.common.entity.IdBasedEntity;
 
 import jakarta.persistence.Column;
@@ -12,16 +12,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sections_brands")
+@Table(name = "sections_authors")
 @Getter
 @Setter
-public class BrandSection extends IdBasedEntity {
+public class AuthorSection extends IdBasedEntity {
 
-	@Column(name = "brand_order")
-	private int brandOrder;
+	@Column(name = "author_order")
+	private int authorOrder;
 
 	@ManyToOne
-	@JoinColumn(name = "brand_id")
-	private Brand brand;
+	@JoinColumn(name = "author_id")
+	private Author author;
 
 }

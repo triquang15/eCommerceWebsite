@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "brands")
+@Table(name = "authors")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Brand extends IdBasedEntity {
+public class Author extends IdBasedEntity {
 
 	@Column(nullable = false, length = 45, unique = true)
 	private String name;
@@ -30,26 +30,26 @@ public class Brand extends IdBasedEntity {
 	private String logo;
 
 	@ManyToMany
-	@JoinTable(name = "brands_categories", joinColumns = @JoinColumn(name = "brand_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "authors_categories", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
-	public Brand(String name) {
+	public Author(String name) {
 		this.name = name;
-		this.logo = "brand-logo.png";
+		this.logo = "author-logo.png";
 	}
 
-	public Brand(Integer id) {
+	public Author(Integer id) {
 		this.id = id;
 	}
 
-	public Brand(Integer id, String name) {
+	public Author(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Brand [id=" + id + ", name=" + name + ", categories=" + categories + "]";
+		return "Author [id=" + id + ", name=" + name + ", categories=" + categories + "]";
 	}
 
 	@Transient
@@ -57,7 +57,7 @@ public class Brand extends IdBasedEntity {
 		if (this.id == null)
 			return "/images/image-thumbnail.png";
 
-	//	return "/brand-logos/" + this.id + "/" + this.logo;
-		return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;
+	//	return "/author-logos/" + this.id + "/" + this.logo;
+		return Constants.S3_BASE_URI + "/author-logos/" + this.id + "/" + this.logo;
 	}
 }

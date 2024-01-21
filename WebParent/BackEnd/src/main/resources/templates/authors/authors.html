@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Categories - Revel Admin', 'none')" />
+<head th:replace="fragments :: page_head('Authors - Admin', 'none')" />
 <body class="body-padding body-p-top light-theme">
 
 	<!-- header start -->
@@ -17,10 +17,10 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h5>Manage Categories</h5>
+                        <h5>Manage Authors</h5>
                         <div class="btn-box d-flex gap-2">
-                        <a th:href="@{/categories/new}" class="btn btn-sm btn-icon btn-outline-primary" title="New Category" ><i class="fa-light fa-plus"></i></a>       
-                       	<a th:href="@{/categories/export/csv}" class="btn btn-sm btn-icon btn-outline-primary" title="Download CSV" ><i class="fa-light fa-file-spreadsheet"></i></a>                                        
+                        <a th:href="@{/authors/new}" class="btn btn-sm btn-icon btn-outline-primary" title="New Author" ><i class="fa-light fa-plus"></i></a>       
+                       	<a th:href="@{/authors/export/csv}" class="btn btn-sm btn-icon btn-outline-primary" title="Download CSV" ><i class="fa-light fa-file-spreadsheet"></i></a>                                        
                         </div>
                     </div>
                     <div class="panel-body">
@@ -44,37 +44,33 @@
                             <thead>
                                 <tr>
                                     <th th:replace="fragments :: column_link('id', 'ID', 'none')" />
-                                    <th>Category Image</th>
-                                    <th th:replace="fragments :: column_link('name', 'Category Name', 'none')" />
-                                    <th>Alias</th>
-                                    <th>Status</th>
+                                    <th>Photo</th>
+                                    <th th:replace="fragments :: column_link('name', 'Author Name', 'none')" />
+                                    <th>Categories</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="cat : ${listCategories}">                                   
-                                    <td>#[[${cat.id}]]</td>
-                                    <td><div th:replace="fragments :: category_photos" /></td>
-                                   <td>[[${cat.name}]]</td>
-                                    <td>[[${cat.alias}]]</td>
-									<td><div th:replace="fragments :: status(${cat.enabled}, 'category', '/categories/' + ${cat.id})" /></td>
+                                <tr th:each="author : ${listAuthors}">                                   
+                                    <td>#[[${author.id}]]</td>
+                                    <td><div th:replace="fragments :: author_photos" /></td>
+                                   <td>[[${author.name}]]</td>
+									<td>
+										<th:block th:each="cat : ${author.categories}">
+										<span class="badge bg-warning text-dark" th:text="${cat.name}"></span>
+										</th:block>
+									</td>
                                     <td>
-                                        <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
+                                        <div th:replace="fragments :: edit('author', '/authors/edit/' + ${author.id})" />
 										&nbsp;&nbsp;
-										<div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})" />	
+										<div th:replace="fragments :: delete('author', ${author.id}, '/authors/delete/' + ${author.id}, true)" />	
                                     </td>
                                 </tr>
                            
                             </tbody>
                         </table>
                         <div class="table-bottom-control"></div>
-                        	<div th:if="${keyword != null}" class="text-center">
-							<span>Search result does not show categories in hierarchical form</span>
-							<div th:replace="fragments :: pagination('categories')"></div>
-						</div>
-	
-						<th:block th:unless="${keyword != null}">
-						<div th:replace="fragments :: pagination('top-level categories')"></div>
+                        	<div th:replace="fragments :: pagination('authors')"></div>
 						</div>               	 			
                     </div>
                 </div>
@@ -89,8 +85,8 @@
 
      <div th:replace="modal_fragments :: confirm_modal" /></div>			
 	<script type="text/javascript">
-		moduleURL = "[[@{/categories}]]";
-		entityName = "category";
+		moduleURL = "[[@{/authors}]]";
+		entityName = "author";
 	</script>
 	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
