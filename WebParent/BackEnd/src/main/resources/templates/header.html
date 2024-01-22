@@ -185,8 +185,8 @@
                                 </div>
                             </li>
                             <li><a class="dropdown-item" th:href="@{/account}"><span class="dropdown-icon"><i class="fa-regular fa-circle-user"></i></span> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-icon"><i class="fa-regular fa-circle-question"></i></span> Help</a></li>
-                            <li><a class="dropdown-item" href="dashboard-edit-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li>
+                            <li><a class="dropdown-item" href="https://www.google.com.vn"><span class="dropdown-icon"><i class="fa-regular fa-circle-question"></i></span> Help</a></li>
+                            <li sec:authorize="hasAuthority('Admin')"><a class="dropdown-item" th:href="@{/settings}"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li>
                             <li><a class="dropdown-item" id="logoutLink" href=""><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span> Logout</a></li>
                         </ul>
                     </div>

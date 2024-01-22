@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="page_head(title, remove)" th:remove="${remove}">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
-
-	<title>[[${title}]]</title>
-	
-	<link rel="shortcut icon" th:href="@{/images/favicon.png}">
+  	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${title}]]</title>
+    
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}">
     <link rel="stylesheet" th:href="@{/vendor/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/OverlayScrollbars.min.css}">
-     <link rel="stylesheet" th:href="@{/vendor/css/jquery.uploader.css}">
-    <link rel="stylesheet" th:href="@{/vendor/css/jquery.dataTables.min.css}">
-     <link rel="stylesheet" th:href="@{/vendor/css/select2.min.css}">
-    <link rel="stylesheet" th:href="@{/vendor/css/daterangepicker.css}">
+    <link rel="stylesheet" th:href="@{/vendor/css/jquery.uploader.css}">
+    <link rel="stylesheet" th:href="@{/vendor/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/vendor/css/bootstrap-material-datetimepicker.css}">
+    <link rel="stylesheet" th:href="@{/vendor/css/material-icon.css}">
+    <link rel="stylesheet" th:href="@{/vendor/css/selectize.css}">
     <link rel="stylesheet" th:href="@{/vendor/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" id="primaryColor" th:href="@{/css/orange-color.css}">
+    <link rel="stylesheet" id="rtlStyle" href="#">
 </head>
 <body>	
 	<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">

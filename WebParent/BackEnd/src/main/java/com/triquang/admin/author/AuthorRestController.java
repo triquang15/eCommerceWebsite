@@ -25,7 +25,7 @@ public class AuthorRestController {
 	}
 	
 	@GetMapping("/authors/{id}/categories")
-	public List<CategoryDTO> listCategoriesByBrand(@PathVariable(name = "id") Integer authorId) throws AuthorNotFoundRestException {
+	public List<CategoryDTO> listCategoriesByAuthor(@PathVariable(name = "id") Integer authorId) throws AuthorNotFoundRestException {
 		List<CategoryDTO> listCategories = new ArrayList<>(); 
 		
 		try {

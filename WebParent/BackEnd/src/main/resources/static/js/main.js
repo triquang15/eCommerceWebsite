@@ -39,6 +39,11 @@
             $('.header').toggleClass('expanded-in-mobile');
             $('.header-collapse-group').toggle();
         });
+        
+        $("#logoutLink").on("click", function(e) {
+			e.preventDefault();
+			document.logoutForm.submit();
+		});
 
 
 

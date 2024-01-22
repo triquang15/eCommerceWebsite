@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Product
+				Name <span class="btn-flush fs-14" ><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+
+			<th:block th:if="${isReadOnlyForSalesperson}">
+				<div class="col-md-10">
+					<input type="text" class="form-control form-control-sm"
+						th:field="*{name}" readonly="readonly" />
+				</div>
+			</th:block>
+
+			<th:block th:unless="${isReadOnlyForSalesperson}">
+				<div class="col-md-10">
+					<input type="text" class="form-control form-control-sm"
+						th:field="*{name}" required minlength="3" maxlength="256" />
+				</div>
+			</th:block>
+
+		</div>
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Alias
+				<span class="btn-flush fs-14" ><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+
+			<th:block th:if="${isReadOnlyForSalesperson}">
+				<div class="col-md-10">
+					<input type="text" class="form-control form-control-sm"
+						th:field="*{alias}" readonly="readonly" />
+				</div>
+			</th:block>
+
+			<th:block th:unless="${isReadOnlyForSalesperson}">
+				<div class="col-md-10">
+					<input type="text" class="form-control form-control-sm"
+						th:field="*{alias}" required minlength="3" maxlength="256"
+						placeholder="Default is product name" />
+				</div>
+			</th:block>
+
+		</div>
+
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Status
+				<span class="btn-flush fs-14" ><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<div class="form-check">
+					<th:block th:if="${isReadOnlyForSalesperson}">
+						<th:block th:if="${product.category != null}">
+							<input class="form-check-input" type="checkbox"
+								th:field="*{enabled}" disabled="disabled" />
+						</th:block>
+					</th:block>
+
+					<th:block th:unless="${isReadOnlyForSalesperson}">
+						<input class="form-check-input" type="checkbox"
+							th:field="*{enabled}" />
+					</th:block>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Author
+				<span class="btn-flush fs-14"><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<th:block th:unless="${isReadOnlyForSalesperson}">
+					<select class="form-control form-control-sm" th:field="*{author}"
+						required>
+						<th:block th:each="author : ${listAuthors}">
+							<option th:value="${author.id}">[[${author.name}]]</option>
+						</th:block>
+					</select>
+				</th:block>
+
+				<th:block th:if="${isReadOnlyForSalesperson}">
+					<input type="text" class="form-control"
+						th:value="${product.author.name}" readonly />
+				</th:block>
+			</div>
+		</div>
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Show
+				Stock <span class="btn-flush fs-14" ><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<div class="form-check">
+					<th:block th:if="${isReadOnlyForSalesperson}">
+						<input class="form-check-input" type="checkbox"
+							th:field="*{inStock}" disabled="disabled" />
+					</th:block>
+
+					<th:block th:unless="${isReadOnlyForSalesperson}">
+						<input class="form-check-input" type="checkbox"
+							th:field="*{inStock}" />
+					</th:block>
+					<label class="form-check-label" for="soldIndividually">
+						Limit purchases to 1 item per order </label>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Category
+				<span class="btn-flush fs-14" ><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<th:block th:unless="${isReadOnlyForSalesperson}">
+					<th:block th:if="${product.category != null}">
+						<select class="form-control form-control-sm"
+							th:field="*{category}" required>
+							<th:block th:each="cat : ${product.author.categories}">
+								<option th:value="${cat.id}">[[${cat.name}]]</option>
+							</th:block>
+						</select>
+					</th:block>
+
+					<th:block th:if="${product.category == null}">
+						<select th:field="*{category}"
+							class="form-control form-control-sm" required>
+						</select>
+					</th:block>
+				</th:block>
+
+				<th:block th:if="${isReadOnlyForSalesperson}">
+					<input type="text" class="form-control"
+						th:value="${product.category.name}" readonly />
+				</th:block>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

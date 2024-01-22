@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+		<div class="row g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Length
+				(inch) <span class="btn-flush fs-14" data-bs-toggle="tooltip"
+				data-bs-custom-class="custom-tooltip"
+				data-bs-title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<input type="number" class="form-control form-control-sm"
+					step="0.01" th:field="*{length}">
+			</div>
+		</div>
+
+		<div class="row g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Width
+				(inch) <span class="btn-flush fs-14" data-bs-toggle="tooltip"
+				data-bs-custom-class="custom-tooltip"
+				data-bs-title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<input type="number" class="form-control form-control-sm"
+					step="0.01" th:field="*{width}">
+			</div>
+		</div>
+		
+		<div class="row g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Height
+				(inch) <span class="btn-flush fs-14" data-bs-toggle="tooltip"
+				data-bs-custom-class="custom-tooltip"
+				data-bs-title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<input type="number" class="form-control form-control-sm"
+					step="0.01" th:field="*{height}">
+			</div>
+		</div>
+		
+		<div class="row g-3 mb-3">
+			<label class="col-md-2 col-form-label col-form-label-sm">Weight (pounds)
+				 <span class="btn-flush fs-14" data-bs-toggle="tooltip"
+				data-bs-custom-class="custom-tooltip"
+				data-bs-title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."><i
+					class="fa-solid fa-circle-question"></i></span>
+			</label>
+			<div class="col-md-10">
+				<input type="number" class="form-control form-control-sm"
+					step="0.01" th:field="*{weight}">
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

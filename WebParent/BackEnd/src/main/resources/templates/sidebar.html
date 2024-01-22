@@ -15,30 +15,76 @@
                 <li class="sidebar-item">
                     <a role="button" class="sidebar-link-group-title has-sub">Apps</a>
                     <ul class="sidebar-link-group">
+                    
+                   		 <th:block sec:authorize="hasAuthority('Editor')">
+                    	 <li class="sidebar-dropdown-item">
+                            <a th:href="@{/sections}" class="sidebar-link"><span class="nav-icon"><i class="fa-duotone fa-house"></i></span> <span class="sidebar-txt">Home Page</span></a>
+                        </li>
+                         </th:block>
+                         
+                    	 <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
                         <li class="sidebar-dropdown-item">
-                            <a href="dashboard-all-customer.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-user-group"></i></span> <span class="sidebar-txt">All Customer</span></a>
+                            <a th:href="@{/categories}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-tag"></i></span> <span class="sidebar-txt">Categories</span></a>
+                        </li>
+                         <li class="sidebar-dropdown-item">
+                            <a th:href="@{/authors}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-at"></i></span> <span class="sidebar-txt">Authors</span></a>
+                        </li>
+                        </th:block>
+                        
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
+                         <li class="sidebar-dropdown-item">
+                            <a role="button" class="sidebar-link has-sub" data-dropdown="authDropdown"><span class="nav-icon"><i class="fa-light fa-boxes"></i></span> <span class="sidebar-txt">Products</span></a>
+                            <ul class="sidebar-dropdown-menu" id="authDropdown">                             
+                                <li class="sidebar-dropdown-item"><a th:href="@{/products/new}" sec:authorize="hasAnyAuthority('Admin', 'Editor')" class="sidebar-link">Add Product</a></li>
+                                <li class="sidebar-dropdown-item"><a th:href="@{/products}" class="sidebar-link">Products</a></li>
+                          
+                         	 <th:block sec:authorize="hasAnyAuthority('Admin', 'Assistant')">
+                         	  <li class="sidebar-dropdown-item"><a th:href="@{/questions}" class="sidebar-link">Questions</a></li>
+                         	  <li class="sidebar-dropdown-item"><a th:href="@{/reviews}" class="sidebar-link">Reviews</a></li>
+                         	 </th:block>
+                            </ul>
+                        </li>
+                        </th:block>
+                     
+                     	<th:block sec:authorize="hasAuthority('Assistant')">
+                     	 <li class="sidebar-dropdown-item">
+                            <a th:href="@{/questions}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-message-question"></i></span> <span class="sidebar-txt">Questions</span></a>
+                        </li>
+                         <li class="sidebar-dropdown-item">
+                            <a th:href="@{/reviews}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-star-sharp-half-stroke"></i></span> <span class="sidebar-txt">Reviews</span></a>
+                        </li>
+                        </th:block>
+                        
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                         <li class="sidebar-dropdown-item">
+                            <a href="dashboard-all-customer.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-user-group"></i></span> <span class="sidebar-txt">Customers</span></a>
+                        </li>
+                         <li class="sidebar-dropdown-item">
+                            <a href="dashboard-all-customer.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-truck-fast"></i></span> <span class="sidebar-txt">Shipping Rates</span></a>
+                        </li>
+                        </th:block>
+                                          
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper')">     
+                        <li class="sidebar-dropdown-item">
+                            <a th:href="@{/orders}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-cart-shopping-fast"></i></span> <span class="sidebar-txt">Orders</span></a>
+                        </li>
+                        </th:block>
+                        
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
+                        <li class="sidebar-dropdown-item">
+                            <a th:href="@{/reports}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-calendar"></i></span> <span class="sidebar-txt">Sales Report</span></a>
+                        </li>
+                        </th:block>
+                        
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                        <li class="sidebar-dropdown-item">
+                            <a th:href="@{/articles}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-file-invoice"></i></span> <span class="sidebar-txt">Articles</span></a>
                         </li>
                         <li class="sidebar-dropdown-item">
-                            <a href="dashboard-add-product.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-plus-square"></i></span> <span class="sidebar-txt">Add Product</span></a>
+                            <a th:href="@{/menus}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-bars"></i></span> <span class="sidebar-txt">Menus</span></a>
                         </li>
-                        <li class="sidebar-dropdown-item">
-                            <a href="dashboard-all-product.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-boxes"></i></span> <span class="sidebar-txt">All Product</span></a>
-                        </li>
-                        <li class="sidebar-dropdown-item">
-                            <a th:href="@{/categories}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-tag"></i></span> <span class="sidebar-txt">Category</span></a>
-                        </li>
-                        <li class="sidebar-dropdown-item">
-                            <a th:href="@{/authors/new}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-cart-shopping-fast"></i></span> <span class="sidebar-txt">Order</span></a>
-                        </li>
-                        <li class="sidebar-dropdown-item">
-                            <a href="dashboard-calendar.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-calendar"></i></span> <span class="sidebar-txt">Calendar</span></a>
-                        </li>
-                        <li class="sidebar-dropdown-item">
-                            <a href="dashboard-invoices.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-file-invoice"></i></span> <span class="sidebar-txt">Invoices</span></a>
-                        </li>
-                        <li class="sidebar-dropdown-item">
-                            <a th:href="@{/authors}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-user-plus"></i></span> <span class="sidebar-txt">All Authors</span></a>
-                        </li>
+                        </th:block>
+                      
                     </ul>
                 </li>
                 <th:block sec:authorize="hasAuthority('Admin')">

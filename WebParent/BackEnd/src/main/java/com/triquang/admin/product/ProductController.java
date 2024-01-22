@@ -56,14 +56,14 @@ public class ProductController {
 	
 	@GetMapping("/products/new")
 	public String newProduct(Model model) {
-		List<Author> listBrands = brandService.listAll();
+		List<Author> listAuthors = brandService.listAll();
 		
 		Product product = new Product();
 		product.setEnabled(true);
 		product.setInStock(true);
 		
 		model.addAttribute("product", product);
-		model.addAttribute("listBrands", listBrands);
+		model.addAttribute("listAuthors", listAuthors);
 		model.addAttribute("pageTitle", "Create New Product");
 		model.addAttribute("numberOfExistingExtraImages", 0);
 		
@@ -143,7 +143,7 @@ public class ProductController {
 			RedirectAttributes ra, @AuthenticationPrincipal WebUserDetails loggedUser) {
 		try {
 			Product product = productService.get(id);
-			List<Author> listBrands = brandService.listAll();
+			List<Author> listAuthors = brandService.listAll();
 			Integer numberOfExistingExtraImages = product.getImages().size();
 			
 			boolean isReadOnlyForSalesperson = false;
@@ -156,7 +156,7 @@ public class ProductController {
 			
 			model.addAttribute("isReadOnlyForSalesperson", isReadOnlyForSalesperson);
 			model.addAttribute("product", product);
-			model.addAttribute("listBrands", listBrands);
+			model.addAttribute("listAuthors", listAuthors);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
 			model.addAttribute("numberOfExistingExtraImages", numberOfExistingExtraImages);
 			

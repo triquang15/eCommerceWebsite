@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="panel mb-30">
+			<div class="panel-body product-title-input">
+				<label class="form-label">Write Title</label>
+				<textarea class="form-control" th:field="*{shortDescription}"
+					rows="5" required></textarea>
+			</div>
+		</div>
+		<div class="panel mb-30">
+			<div class="panel-body product-title-input">
+				<label class="form-label">Product Description</label>
+				<textarea class="form-control" th:field="*{fullDescription}"
+					rows="10" required></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

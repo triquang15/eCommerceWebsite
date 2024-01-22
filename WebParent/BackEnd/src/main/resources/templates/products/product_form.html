@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-menu="flush-menu" data-nav-size="nav-default"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+
+<body class="body-padding body-p-top light-theme">
+
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+
+	<!-- main content start -->
+	<div class="main-content">
+		<div class="dashboard-breadcrumb mb-30">
+			<h2>Manage Products | [[${pageTitle}]]</h2>
+			<div class="btn-box">
+				<a href="dashboard-all-product.html" class="btn btn-sm btn-primary">View
+					All</a>
+			</div>
+		</div>
+		<div class="row g-4">
+			<div class="col-xxl-12 col-lg-12">
+
+				<form th:action="@{/products/save}" method="post"
+					onsubmit="return checkUnique(this)" enctype="multipart/form-data"
+					th:object="${product}">
+					<input type="hidden" th:field="*{id}" /> <input
+						th:if="${product.category != null}" type="hidden" id="categoryId"
+						th:value="${product.category.id}" />
+					<div class="panel mb-30">
+						<div class="panel-body">
+							<nav>
+								<div class="btn-box d-flex flex-wrap gap-1 mb-30" id="nav-tab"
+									role="tablist">
+									<button class="btn btn-sm btn-outline-primary active"
+										id="nav-media-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-media" type="button" role="tab"
+										aria-controls="nav-media" aria-selected="true">File
+										Media</button>
+									<button class="btn btn-sm btn-outline-primary"
+										id="nav-inventory-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-inventory" type="button" role="tab"
+										aria-controls="nav-inventory" aria-selected="false">Inventory</button>
+									<button class="btn btn-sm btn-outline-primary"
+										id="nav-price-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-price" type="button" role="tab"
+										aria-controls="nav-price" aria-selected="false">Price</button>
+									<button class="btn btn-sm btn-outline-primary"
+										id="nav-shipping-info-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-shipping-info" type="button" role="tab"
+										aria-controls="nav-shipping-info" aria-selected="false">Shipping
+										Info</button>
+									<button class="btn btn-sm btn-outline-primary"
+										id="nav-shipping-configuration-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-shipping-configuration" type="button"
+										role="tab" aria-controls="nav-shipping-configuration"
+										aria-selected="false">Details</button>
+									<button class="btn btn-sm btn-outline-primary"
+										id="nav-description-tab" data-bs-toggle="tab"
+										data-bs-target="#nav-description" type="button" role="tab"
+										aria-controls="nav-description" aria-selected="false">Description</button>
+
+								</div>
+							</nav>
+							<div class="tab-content product-data-tab" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-media"
+									role="tabpanel" aria-labelledby="nav-media-tab" tabindex="0">
+									<div class="row">
+										<div class="col-xxl-3 col-md-4 col-5 col-xs-12">
+											<div class="add-thumbnail product-image-upload">
+												<div class="part-txt">
+													<h5>
+														Add thumbnail <span>(jpeg/png)</span>
+													</h5>
+												</div>
+												<input type="text" class="image-input" id="thumbUpload">
+											</div>
+										</div>
+										<div class="col-xxl-9 col-md-8 col-7 col-xs-12">
+											<div class="add-gallery-img product-image-upload">
+												<div class="part-txt">
+													<h5>
+														Add gallery <span>(jpeg/png)</span>
+													</h5>
+												</div>
+												<input type="text" class="image-input" id="galleryUpload">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="nav-inventory" role="tabpanel"
+									aria-labelledby="nav-inventory-tab" tabindex="0">
+									<div th:replace="products/product_overview :: content"></div>
+								</div>
+
+								<div class="tab-pane fade" id="nav-price" role="tabpanel"
+									aria-labelledby="nav-price-tab" tabindex="0">
+									<div th:replace="products/nav-price :: content"></div>
+
+								</div>
+
+								<div class="tab-pane fade" id="nav-shipping-info"
+									role="tabpanel" aria-labelledby="nav-shipping-info-tab"
+									tabindex="0">
+									<th:block th:if="${isReadOnlyForSalesperson}">
+										<div
+											th:replace="products/product_shipping_read_only :: content"></div>
+									</th:block>
+
+									<th:block th:unless="${isReadOnlyForSalesperson}">
+										<div th:replace="products/product_shipping :: content"></div>
+									</th:block>
+								</div>
+
+								<div class="tab-pane fade" id="nav-shipping-configuration"
+									role="tabpanel"
+									aria-labelledby="nav-shipping-configuration-tab" tabindex="0">
+
+									<th:block th:if="${isReadOnlyForSalesperson}">
+										<div
+											th:replace="products/product_details_read_only :: content"></div>
+									</th:block>
+
+									<th:block th:unless="${isReadOnlyForSalesperson}">
+										<div th:replace="products/product_details :: content"></div>
+										<div>
+											<button class="btn btn-sm btn-primary" type="button"
+												onclick="addNextDetailSection()">Add More Detail</button>
+										</div>
+									</th:block>
+
+								</div>
+								<div class="tab-pane fade" id="nav-description" role="tabpanel"
+									aria-labelledby="nav-description-tab" tabindex="0">
+
+									<th:block th:if="${isReadOnlyForSalesperson}">
+										<div
+											th:replace="products/product_description_read_only :: content"></div>
+									</th:block>
+
+									<th:block th:unless="${isReadOnlyForSalesperson}">
+										<div th:replace="products/product_description :: content"></div>
+									</th:block>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-6 d-flex justify-content-end">
+						<div class="btn-box">
+							<button type="submit" class="btn btn-sm btn-primary">Save
+							</button>
+							<button type="button" id="buttonCancel"
+								class="btn btn-sm btn-primary">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+		<!-- footer start -->
+		<div class="footer">
+			<p>
+				Copyright©
+				<script>
+					document.write(new Date().getFullYear())
+				</script>
+				All Rights Reserved By <span class="text-primary">eCommerce</span>
+			</p>
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- main content end -->
+	<script type="text/javascript">
+		MAX_FILE_SIZE = 502400; // 500KB
+
+		moduleURL = "[[@{/products}]]";
+		authorModuleURL = "[[@{/authors}]]";
+		defaultImageThumbnailSrc = "[[@{/images/image-thumbnail.png}]]";
+		checkUniqueUrl = "[[@{/products/check_unique}]]";
+	</script>
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/vendor/js/ckeditor.js}"></script>
+	<script th:src="@{/vendor/js/jquery.uploader.min.js}"></script>
+	<script th:src="@{/vendor/js/moment.min.js}"></script>
+	<script th:src="@{/vendor/js/bootstrap-material-datetimepicker.js}"></script>
+	<script th:src="@{/vendor/js/selectize.min.js}"></script>
+	<script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/add-product.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/product_form_overview.js}"></script>
+	<script th:src="@{/js/product_form_images.js}"></script>
+	<script th:src="@{/js/product_form_details.js}"></script>
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</body>
+</html>
