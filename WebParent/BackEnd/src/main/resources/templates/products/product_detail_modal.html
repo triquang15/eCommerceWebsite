@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<h4 class="modal-title">Product Details</h4>
+	<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+</div>
+
+<div>
+	   <div class="modal-body file-details-modal">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-sm-6">
+                            <div class="part-img">
+                                <img th:src="@{${product.mainImagePath}}" alt="Image">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="part-txt">
+                                <ul class="file-details">
+                                    <li><span>Uploaded on:</span><span th:text="${#dates.format(product.updatedTime, 'yyyy-MM-dd HH:mm:ss')}"></span></li>                                
+                                    <li th:each="detail: ${product.details}">
+                                    <span>[[${detail.name}]]:</span>[[${detail.value}]]
+                                    </li>                                   
+                                    <li><span>Price:</span>[[${product.price}]]</li>
+                                    <li><span>Discount:</span>[[${product.discountPercent}]]</li>
+                                </ul>
+                                <form class="add-details">
+                                    Description:
+                                    <div th:utext="${product.fullDescription}" class="border p-2 m-2"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+</div>

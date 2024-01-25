@@ -49,7 +49,7 @@ function addNextExtraImageSection(index) {
 			<div id="extraImageHeader${index}"><label>Extra Image #${index + 1}:</label></div>
 			<div class="m-2">
 				<img id="extraThumbnail${index}" alt="Extra image #${index + 1} preview" class="img-fluid"
-					src="${defaultImageThumbnailSrc}"/>
+					src="${defaultImageThumbnailSrc}" style="width: 200px; height: 200px;"/>
 			</div>
 			<div>
 				<input type="file" name="extraImage"
@@ -60,7 +60,7 @@ function addNextExtraImageSection(index) {
 	`;
 	
 	htmlLinkRemove = `
-		<a class="btn fas fa-times-circle fa-2x icon-dark float-right"
+		<a class="fas fa-trash" style="color: #DC143C" float-right"
 			href="javascript:removeExtraImage(${index - 1})" 
 			title="Remove this image"></a>
 	`;

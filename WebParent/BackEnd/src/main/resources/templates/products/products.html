@@ -1,10 +1,194 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragments :: page_head('Products - eCommerce Admin', 'none')" />
+<body class="body-padding body-p-top light-theme">
 
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+
+     <!-- main content start -->
+  <div class="main-content">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Manage Products</h5>
+                        
+                        <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+	                        <div class="btn-box d-flex gap-2">
+	                        <a th:href="@{/products/new}" class="btn btn-sm btn-icon btn-outline-primary" title="New Category" ><i class="fa-light fa-plus"></i></a>       
+	                       	<a th:href="@{/products/export/csv}" class="btn btn-sm btn-icon btn-outline-primary" title="Download CSV" ><i class="fa-light fa-file-spreadsheet"></i></a>                                        
+	                        </div>
+                        </th:block>
+                        
+                    </div>
+                    <div class="panel-body">
+                       <div class="table-filter-option">
+                            <div class="row g-3">
+                                <div class="col-xl-10 col-9 col-xs-12">
+                                    <div class="row g-3">
+                                    
+                                        <div class="col">
+											<form th:action="@{${moduleURL} + '/page/1'}" class="row g-2" id="searchForm">
+												<input type="hidden" name="sortField"
+													th:value="${sortField}" /> <input type="hidden"
+													name="sortDir" th:value="${sortDir}" />
+												<div class="col">
+													<select class="form-control form-control-sm" name="categoryId" id="dropdownCategory">
+														<option value="0">All Categories</option>
+														<th:block th:each="cat : ${listCategories}">
+														<option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
+														</th:block>
+													</select>
+												</div>
+												<div class="col">
+													<button class="btn btn-sm btn-primary">
+														<i class="fa-light fa-filter"></i> Filter
+													</button>
+												</div>
+												<div class="col">
+													<input type="search" name="keyword" th:value="${keyword}"
+														class="form-control" required />
+												</div>
+												<div class="col">
+													<button class="btn btn-sm btn-primary">
+														<i class="fa-light fa-search"></i> Search
+													</button>
+												</div>
+												<div class="col">
+													<button type="button" class="btn btn-sm btn-primary"
+														onclick="clearFilter()">
+														<i class="fa-light fa-eraser"></i> Clear
+													</button>
+												</div>
+																								 
+											</form>
+											<br>
+		<div th:if="${message != null}" class="msg-success alert alert-success py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-check me-2"></i>[[${message}]]</div>	
+                                         
+                                        </div>     
+                                                                     
+                                                      
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-3 col-xs-12 d-flex justify-content-end">
+                                    <div id="productTableLength"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-dashed table-hover digi-dataTable all-product-table table-striped">
+                            <thead>
+                                <tr>
+                                    <th th:replace="fragments :: column_link('id', 'ID', 'none')" />
+                                    <th th:replace="fragments :: column_link('name', 'Product', 'none')" />
+                                    <th th:replace="fragments :: column_link('author', 'Author', 'none')" />                                             
+                                    <th>Alias</th>                          
+                                    <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+                                    <th>Status</th>
+                                    </th:block>
+                                   <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="product : ${listProducts}">                               
+                                    <td>#[[${product.id}]]</td>
+                                    <td>
+                                    	<div class="table-product-card">
+                                            <div class="part-img">
+                                                <img th:src="@{${product.mainImagePath}}" alt="Image">
+                                            </div>
+                                            <div class="part-txt">
+                                                <span class="product-name">
+													<a th:href="@{'/products/detail/' + ${product.id}}" class="link-detail"
+													th:title="${product.name}">[[${product.shortName}]]</a>
+												</span>
+                                                <span class="product-category">Category: [[${product.category.name}]]</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                   <td>[[${product.author.name}]]</td>
+                                    <td>[[${product.alias}]]</td>
+									<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+										<td>
+											<div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />											
+										</td>
+									</th:block>
+									<td>
+									<a class="fa-light fa-regular fa-eye link-detail" style="color: #4169E1" 
+										th:href="@{'/products/detail/' + ${product.id}}"
+										title="View details of this product"></a>
+										
+										<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+										&nbsp;&nbsp;
+										<div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" />
+										</th:block>
+										
+										<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+										&nbsp;&nbsp;
+										<div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
+                                 	   </th:block>	
+                                    </td>
+                                </tr>
+                           
+                            </tbody>
+                        </table>
+                        <div class="table-bottom-control"></div>
+                        	<div th:if="${keyword != null}" class="text-center">
+							<span>Search result does not show categories in hierarchical form</span>
+							<div th:replace="fragments :: pagination('categories')"></div>
+						</div>
+	
+						<th:block th:unless="${keyword != null}">
+						<div th:replace="fragments :: pagination('top-level categories')"></div>
+						</div>               	 			
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer start -->
+        <div class="footer">
+            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">eCommerce</span></p>
+        </div>
+        <!-- footer end -->
+	<div th:replace="modal_fragments :: confirm_modal" />
+
+	<div class="modal fade" id="detailModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+	<div th:replace="modal_fragments :: confirm_modal" /></div>			
+	
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+    <script th:src="@{/vendor/js/moment.min.js}"></script>
+    <script th:src="@{/vendor/js/daterangepicker.js}"></script>
+    <script th:src="@{/vendor/js/select2.min.js}"></script>
+    <script th:src="@{/vendor/js/pdfmake.min.js}"></script>
+    <script th:src="@{/vendor/js/html2canvas.min.js}"></script>
+    <script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/common_list.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+    <script type="text/javascript">
+		moduleURL = "[[@{/products}]]";
+		entityName = "product";
+	
+		$(document).ready(function() {
+			handleDefaultDetailLinkClick();
+			
+			$("#dropdownCategory").on("change", function() {
+				$("#searchForm").submit();
+			});
+			
+		});
+	</script>
 </body>
 </html>
