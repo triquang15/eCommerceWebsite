@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<html  xmlns:th="http://www.thymeleaf.org">
 <body>
-
+<div th:fragment="content" th:remove="tag">
+	<div class="row">
+		<div class="col border m-3 p-2">
+			<div><label>Main Image: [[${product.mainImage}]]</label></div>
+			<div class="m-2">
+				<img alt="Main image preview" class="img-fluid"
+					th:src="@{${product.mainImagePath}}" style="width: 200px; height: 300px;"/>
+			</div>
+		</div>
+		
+		<th:block th:each="productImage, status : ${product.images}">
+		<div class="col border m-3 p-2">
+			<div>
+				<label>Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]</label>				
+			</div>
+			<div class="m-2">
+				<img th:alt="'Extra image #' + ${status.index + 1} + ' preview'" class="img-fluid"
+					th:src="@{${productImage.imagePath}}" style="width: 200px; height: 300px;"/>
+			</div>				
+		</div>		
+		</th:block>	  
+	  </div>	
+</div>		
 </body>
 </html>
