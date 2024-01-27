@@ -1,5 +1,7 @@
 package com.triquang.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -21,6 +23,7 @@ public class State extends IdBasedEntity {
 	@Column(nullable = false, length = 45)
 	private String name;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "country_id")
 	private Country country;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="profile-edit-tab-title">
+			<h6>
+				<input type="button" value="Load Country List"
+					id="buttonLoadCountriesForStates" class="btn btn-primary m-2" />
+			</h6>
+		</div>
+		<div class="private-information mb-30">
+			<div class="row g-3">
+				<div class="col-12">
+					<select class="form-control m-2" id="dropDownCountriesForStates">
+					</select>
+
+				</div>
+			</div>
+			<br>
+			<form id="formState">
+				<div class="profile-edit-tab-title">
+					<h6>&nbsp;&nbsp;All States/Provinces</h6>
+				</div>
+				<div>
+					<select class="form-control m-2" style="height: 200px" size="3"
+						id="dropDownStates">
+					</select>
+				</div>
+				<div class="social-information">
+					<div class="row g-3">
+						<div class="col-sm-10">
+							<div class="input-group">
+								<span class="input-group-text" id="labelStateName">State/Province
+									Name</span> <input type="text" class="form-control"
+									id="fieldStateName" required minlength="3" maxlength="45" />
+							</div>
+						</div>
+
+						<div class="col-12">
+							<input type="button" id="buttonAddState" value="Add New"
+								class="btn btn-info mr-2" /> <input type="button"
+								id="buttonUpdateState" value="Update"
+								class="btn btn-primary mr-2" disabled="disabled" /> <input
+								type="button" id="buttonDeleteState" value="Delete"
+								class="btn btn-danger" disabled="disabled" />
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+</body>
+</html>

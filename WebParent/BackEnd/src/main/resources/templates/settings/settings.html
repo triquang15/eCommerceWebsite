@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<head th:replace="fragments :: page_head('Settings - Admin', 'tag')" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+</head>
+<body class="body-padding body-p-top light-theme">
+
+	<!-- header start -->
+	<span th:replace="header :: header"></span>
+	<!-- header end -->
+
+	<!-- main sidebar start -->
+	<span th:replace="sidebar :: sidebar"></span>
+	<!-- main sidebar end -->
+	    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-30">
+            <h2>Site Settings</h2>
+        </div>		
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <nav>
+                            <div class="btn-box d-flex flex-wrap gap-1" id="nav-tab" role="tablist">
+                                <button class="btn btn-sm btn-outline-primary active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">General</button>
+                                <button class="btn btn-sm btn-outline-primary" id="countries-tab" data-bs-toggle="tab" data-bs-target="#countries" type="button" role="tab" aria-controls="countries" aria-selected="false">Countries</button>
+                                <button class="btn btn-sm btn-outline-primary" id="states-tab" data-bs-toggle="tab" data-bs-target="#states" type="button" role="tab" aria-controls="states" aria-selected="false">States</button>
+                                <button class="btn btn-sm btn-outline-primary" id="mailServer-tab" data-bs-toggle="tab" data-bs-target="#mailServer" type="button" role="tab" aria-controls="mailServer" aria-selected="false">Mail Server</button>
+                                <button class="btn btn-sm btn-outline-primary" id="mailTemplates-tab" data-bs-toggle="tab" data-bs-target="#mailTemplates" type="button" role="tab" aria-controls="mailTemplates" aria-selected="false">Mail Templates</button>
+                                <button class="btn btn-sm btn-outline-primary" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="payment" aria-selected="false">Payment</button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content profile-edit-tab" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
+                                <div th:replace="settings/general :: content"></div>
+                            </div>
+                            <div class="tab-pane fade" id="countries" role="tabpanel" aria-labelledby="countries-tab" tabindex="0">
+                              <div th:replace="settings/countries :: content"></div>						
+							</div>
+							<div class="tab-pane fade" id="states" role="tabpanel" aria-labelledby="states-tab" tabindex="0">
+                              <div th:replace="settings/states :: content"></div>					
+							</div>
+							<div class="tab-pane fade" id="mail_server" role="tabpanel" aria-labelledby="mail_server-tab" tabindex="0">
+                             <!--  <div th:replace="settings/mail_server :: content"></div>	 -->				
+							</div>
+							<div class="tab-pane fade" id="mail_templates" role="tabpanel" aria-labelledby="mail_templates-tab" tabindex="0">
+                             <!--  <div th:replace="settings/mail_templates/mail_templates :: content"></div>		 -->			
+							</div>
+							<div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" tabindex="0">
+                             <!--  <div th:replace="settings/payment :: content"></div>			 -->	
+							</div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="toast align-items-center text-white bg-primary border-0"
+			role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body" id="toastMessage"></div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+		<!-- footer start -->
+        <div class="footer">
+            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">eCommerce</span></p>
+        </div>
+        <!-- footer end -->
+	</div>
+	
+	<!-- main content end -->
+	<script th:src="@{/vendor/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/vendor/js/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/vendor/js/apexcharts.js}"></script>
+	<script th:src="@{/vendor/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/vendor/js/moment.min.js}"></script>
+	<script th:src="@{/vendor/js/daterangepicker.js}"></script>
+	<script th:src="@{/vendor/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}" ></script>
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+	<script th:src="@{/js/countries_setting.js}"></script>
+	<script th:src="@{/js/states_setting.js}"></script>
+	<script type="text/javascript">
+		MAX_FILE_SIZE = 102400; // 100KB
+		contextPath = "[[@{/}]]";
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+		
+		$(document).ready(function() {
+			$("#customerVerificationContent").richText();
+			$("#orderConfirmationContent").richText({height: 400});
+		});
+		
+	</script>
+</body>
+</html>

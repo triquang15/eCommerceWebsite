@@ -2,6 +2,8 @@ package com.triquang.common.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -22,7 +24,8 @@ public class Country extends IdBasedEntity {
 
 	@Column(nullable = false, length = 5)
 	private String code;
-
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "country")
 	private Set<State> states;
 

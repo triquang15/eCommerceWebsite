@@ -7,6 +7,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -141,23 +143,38 @@ public class CategoryService {
 		return categoriesUsedInForm;
 	}
 	
-	private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, 
-			Category parent, int subLevel) {
+//	private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, 
+//			Category parent, int subLevel) {
+//		int newSubLevel = subLevel + 1;
+//		Set<Category> children = sortSubCategories(parent.getChildren());
+//		
+//		for (Category subCategory : children) {
+//			String name = "";
+//			for (int i = 0; i < newSubLevel; i++) {				
+//				name += "--";
+//			}
+//			name += subCategory.getName();
+//			
+//			categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
+//			
+//			listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
+//		}		
+//	}	
+	
+	private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, Category parent, int subLevel) {
 		int newSubLevel = subLevel + 1;
 		Set<Category> children = sortSubCategories(parent.getChildren());
-		
-		for (Category subCategory : children) {
-			String name = "";
-			for (int i = 0; i < newSubLevel; i++) {				
-				name += "--";
-			}
-			name += subCategory.getName();
-			
+
+		children.forEach(subCategory -> {
+			String name = IntStream.range(0, newSubLevel).mapToObj(i -> "--").collect(Collectors.joining())
+					+ subCategory.getName();
+
 			categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
-			
+
 			listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
-		}		
-	}	
+		});
+	}
+
 	
 	public Category get(Integer id) throws CategoryNotFoundException {
 		try {

@@ -26,5 +26,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.15.3</version> <!-- Use the version that matches your project's requirements -->
+		</dependency>
+
 	</dependencies>
 </project>

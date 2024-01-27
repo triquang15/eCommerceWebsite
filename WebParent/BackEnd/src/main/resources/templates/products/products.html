@@ -69,8 +69,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 												</div>
 																								 
 											</form>
-											<br>
-		<div th:if="${message != null}" class="msg-success alert alert-success py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-check me-2"></i>[[${message}]]</div>	
+											<br>	
                                          
                                         </div>     
                                                                      
@@ -139,6 +138,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                             </tbody>
                         </table>
                         <div class="table-bottom-control"></div>
+                        <div th:if="${message != null}" class="msg-success alert alert-success py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-check me-2"></i>[[${message}]]</div>	
                         	<div th:if="${keyword != null}" class="text-center">
 							<span>Search result does not show categories in hierarchical form</span>
 							<div th:replace="fragments :: pagination('categories')"></div>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<form>
+			<div class="profile-edit-tab-title">
+				<h6>Site Logo</h6>
+			</div>
+			<div class="public-information mb-30">
+				<div class="row g-4">
+					<div class="col-md-3">
+						<div class="admin-profile">
+							<div class="image-wrap">
+								<div class="part-img rounded-circle overflow-hidden">
+									<img th:src="@{${S3_BASE_URI + SITE_LOGO}}" alt="admin">
+								</div>
+								<input type="file" id="fileImage" name="fileImage"
+									accept="image/*" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="row g-3">
+							<div class="col-sm-6">
+								<div class="input-group">
+									<span class="input-group-text"><i
+										class="fa-light fa-user"></i></span> <input type="text"
+										class="form-control" name="SITE_NAME" placeholder="Site Name"
+										th:value="${SITE_NAME}" required />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-light fa-at"></i></span>
+									<input type="text" class="form-control" name="COPYRIGHT"
+										placeholder="Copyright" th:value="${COPYRIGHT}" required />
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="private-information mb-30">
+				<div class="row g-3">
+
+					<div class="col-md-4 col-sm-6">
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text">Currency Type</span> <select
+								class="form-control select-search" name="CURRENCY_ID">
+								<th:block th:each="currency : ${listCurrencies}">
+									<option th:value="${currency.id}"
+										th:selected="(${currency.id} == ${CURRENCY_ID})">[[${currency}]]</option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6">
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text">Currency Symbol Position</span> <select
+								class="form-control" name="CURRENCY_SYMBOL_POSITION">
+								<option value="Before price"
+									th:selected="(${CURRENCY_SYMBOL_POSITION} == 'Before price')">Before
+									price</option>
+								<option value="After price"
+									th:selected="(${CURRENCY_SYMBOL_POSITION} == 'After price')">After
+									price</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-4 col-sm-6">
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text">Decimal Point Type</span> <select
+								class="form-control" name="DECIMAL_POINT_TYPE">
+								<option value="POINT"
+									th:selected="(${DECIMAL_POINT_TYPE} == 'POINT')">Point
+									(.)</option>
+								<option value="COMMA"
+									th:selected="(${DECIMAL_POINT_TYPE} == 'COMMA')">Comma
+									(,)</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-4 col-sm-6">
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text">Decimal Digits</span> <select
+								class="form-control" name="DECIMAL_DIGITS">
+								<option value="0" th:selected="(${DECIMAL_DIGITS} == 0)">0</option>
+								<option value="1" th:selected="(${DECIMAL_DIGITS} == 1)">1</option>
+								<option value="2" th:selected="(${DECIMAL_DIGITS} == 2)">2</option>
+								<option value="3" th:selected="(${DECIMAL_DIGITS} == 3)">3</option>
+								<option value="4" th:selected="(${DECIMAL_DIGITS} == 4)">4</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-4 col-sm-6">
+						<div class="input-group flex-nowrap">
+							<span class="input-group-text">Thousands Point Type</span> <select
+								class="form-control" name="THOUSANDS_POINT_TYPE">
+								<option value="POINT"
+									th:selected="(${THOUSANDS_POINT_TYPE} == 'POINT')">Point
+									(.)</option>
+								<option value="COMMA"
+									th:selected="(${THOUSANDS_POINT_TYPE} == 'COMMA')">Comma
+									(,)</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary">Save
+							Changes</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

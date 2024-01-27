@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div>
+		<input type="button" value="Load Country List" id="buttonLoadCountries" class="btn btn-primary m-2" />
+	</div>
+	<div>
+		<select class="form-control m-2" style="height: 200px" size="3" id="dropDownCountries">
+		</select>
+	</div>
+<br>
+		<form id="formCountry">
+			<div class="profile-edit-tab-title">
+				<h6>Click Load Country List first</h6>
+			</div>		
+			<div class="social-information">
+				<div class="row g-3">
+					<div class="col-sm-6">
+						<div class="input-group">
+							<span class="input-group-text" id="labelCountryName">Country Name</span>
+							<input type="text" class="form-control"
+								id="fieldCountryName" required minlength="3" maxlength="45" />
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="input-group">
+							<span class="input-group-text">Code</span>
+							<input type="text" class="form-control" id="fieldCountryCode" required minlength="2" maxlength="3" />
+						</div>
+					</div>
+					
+					<div class="col-12">
+						<input type="button" id="buttonAddCountry" value="Add New" class="btn btn-info mr-2" />
+						<input type="button" id="buttonUpdateCountry" value="Update" class="btn btn-primary mr-2" disabled="disabled" />
+						<input type="button" id="buttonDeleteCountry" value="Delete" class="btn btn-danger" disabled="disabled" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
