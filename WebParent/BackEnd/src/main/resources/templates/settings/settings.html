@@ -18,6 +18,7 @@
         <div class="dashboard-breadcrumb mb-30">
             <h2>Site Settings</h2>
         </div>		
+         <div th:if="${message != null}" class="msg-success alert alert-success py-2 px-3 rounded mb-20 fs-14"><i class="fa-regular fa-check me-2"></i>[[${message}]]</div>	
         <div class="row">
             <div class="col-12">
                 <div class="panel">
@@ -44,14 +45,14 @@
 							<div class="tab-pane fade" id="states" role="tabpanel" aria-labelledby="states-tab" tabindex="0">
                               <div th:replace="settings/states :: content"></div>					
 							</div>
-							<div class="tab-pane fade" id="mail_server" role="tabpanel" aria-labelledby="mail_server-tab" tabindex="0">
-                             <!--  <div th:replace="settings/mail_server :: content"></div>	 -->				
+							<div class="tab-pane fade" id="mailServer" role="tabpanel" aria-labelledby="mailServer-tab" tabindex="0">
+                              <div th:replace="settings/mail_server :: content"></div>					
 							</div>
-							<div class="tab-pane fade" id="mail_templates" role="tabpanel" aria-labelledby="mail_templates-tab" tabindex="0">
-                             <!--  <div th:replace="settings/mail_templates/mail_templates :: content"></div>		 -->			
+							<div class="tab-pane fade" id="mailTemplates" role="tabpanel" aria-labelledby="mailTemplates-tab" tabindex="0">
+                              <div th:replace="settings/mail_templates/mail_templates :: content"></div>					
 							</div>
 							<div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" tabindex="0">
-                             <!--  <div th:replace="settings/payment :: content"></div>			 -->	
+                              <div th:replace="settings/payment :: content"></div>				
 							</div>
                     
                         </div>
